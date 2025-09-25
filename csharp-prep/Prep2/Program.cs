@@ -32,7 +32,8 @@ class Program
         {
             gradeSign = "+";
         }
-        else if (grade % 10 < 3) {
+        else if (grade % 10 < 3)
+        {
             gradeSign = "-";
         }
         if (letterGrade == "F")
@@ -43,7 +44,7 @@ class Program
         {
             gradeSign = "";
         }
-        
+
         // if (letterGrade == "A")
         // {
         //     aOrAn = "n";
@@ -55,8 +56,8 @@ class Program
             Console.WriteLine($"You passed with a{aOrAn} {letterGrade}{gradeSign}!!!");
         }
         else
-            {
-                Console.WriteLine($"You got a{aOrAn} {letterGrade}{gradeSign}, so you didn't pass. I'll pray for you next time.");
-            }
+        {
+            Console.WriteLine($"You got a{aOrAn} {letterGrade}{gradeSign}, so you didn't pass. I'll pray for you next time.");
         }
+    }
 }
