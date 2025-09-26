@@ -42,4 +42,4 @@ class Program
         int numSquared = SquareNumber(favNumber);
         DisplayResult(name, numSquared, birthYear);
     }
-}
+} 
