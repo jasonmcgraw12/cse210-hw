@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
+// to excede requrements I added a burn function to delete unwanted files, as it gets deleted it shows the entries it had
 class Program
 {
     static void Main(string[] args)
