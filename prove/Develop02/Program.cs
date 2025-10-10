@@ -11,7 +11,7 @@ class Program
         do
         {
             Console.WriteLine("""
-            What would you like to do today?
+            What would you like to do today? Input the number next to what you want to do.
             1. write entry
             2. display current journal
             3. save journal
