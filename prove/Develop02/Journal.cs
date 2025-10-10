@@ -13,7 +13,7 @@ class Journal()
 
     public void Write()
     {
-        using (StreamWriter outputFile = new StreamWriter("Journals/" + _name + ".txt", append: true))
+        using (StreamWriter outputFile = new StreamWriter("Journals/" + _name, append: true))
         {
             foreach (Entry entry in _entries)
             {

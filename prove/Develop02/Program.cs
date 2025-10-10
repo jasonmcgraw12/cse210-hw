@@ -24,7 +24,7 @@ class Program
             {
                 case "1":
                     Entry entry = new();
-                    entry._date = DateTime.Now.ToString("m/d/yyyy");
+                    entry._date = DateTime.Now.ToString("MM/d/yyyy");
                     entry._prompt = GetNewPrompt();
                     Console.WriteLine(entry._prompt);
                     entry._responce = Console.ReadLine();
@@ -50,18 +50,21 @@ class Program
                     currentJournal.Display();
                     break;
                 case "3":
-                    Console.WriteLine("What would you like to name the file you'll save your journal entries to?");
+                    Console.WriteLine("Type the name of the file you'd like to save to, or type a new name to make a new file.");
+                    DisplayFiles();
                     input = Console.ReadLine();
                     currentJournal = SaveJournal(currentJournal, input);
                     break;
                 case "4":
-                    Console.WriteLine("what is the name of the file you'd like to load?");
+                    Console.WriteLine("Type the name of the file you'd like to load.");
+                    DisplayFiles();
                     input = Console.ReadLine();
                     currentJournal = LoadJournal(input);
                     // journal.Display();
                     break;
                 case "5":
-                    Console.WriteLine("what is the name of the file you want to burn?");
+                    Console.WriteLine("Type the name of the file you want to delete.");
+                    DisplayFiles();
                     input = Console.ReadLine();
                     BurnFile(input);
                     break;
@@ -79,7 +82,7 @@ class Program
     {
         currentJournal._name = journalName;
         string directory = Directory.GetCurrentDirectory();
-        string path = directory + "\\Journals\\" + journalName + ".txt";
+        string path = directory + "\\Journals\\" + journalName;
         using (FileStream fs = File.Create(path)) { }
         currentJournal.Write();
         return currentJournal;
@@ -92,7 +95,7 @@ class Program
         journal._name = journalName;
         // find journal you want to write on
         string directory = Directory.GetCurrentDirectory();
-        string path = directory + "\\Journals\\" + journalName + ".txt";
+        string path = directory + "\\Journals\\" + journalName;
         // Console.WriteLine("you are in the directory: " + Directory.GetCurrentDirectory() + path);
         if (File.Exists(path))
         {
@@ -135,7 +138,7 @@ class Program
     static void BurnFile(string journalName)
     {
         string directory = Directory.GetCurrentDirectory();
-        string path = directory + "\\Journals\\" + journalName + ".txt";
+        string path = directory + "\\Journals\\" + journalName;
         Journal journal = LoadJournal(journalName);
         journal.Display();
         if (File.Exists(path))
@@ -146,5 +149,13 @@ class Program
 
         journal._entries = [];
         journal._name = "";
+    }
+
+    static void DisplayFiles()
+    {
+        string path = Directory.GetCurrentDirectory();
+        foreach (string file in Directory.GetFiles(path + "\\Journals")){
+            Console.WriteLine(file.Replace(path+"\\Journals\\",""));
+        }
     }
 }
