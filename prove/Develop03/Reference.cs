@@ -9,17 +9,49 @@ class Reference()
 
 
 
-    public Reference(string book, int chapter, int startVerse, int endVerse): this()
+    public Reference(string book, int chapter, int startVerse, int endVerse) : this()
     {
         _book = book;
         _chapter = chapter;
         _startVerse = startVerse;
         _endVerse = endVerse;
     }
+
+
+    public Reference(string book, int chapter, int startVerse) : this()
+    {
+        _book = book;
+        _chapter = chapter;
+        _startVerse = startVerse;
+    }
+
+
+    public void Display()
+    {
+        string reference;
+        if (_endVerse != 0)
+        {
+            reference = $"{_book} {_chapter}:{_startVerse}-{_endVerse}  ";
+        }
+        else
+        {
+            reference = $"{_book} {_chapter}:{_startVerse}  ";
+        }
+        Console.Write(reference);
+    }
     
 
-    public string Display()
+    public string GetReferenceString()
     {
-        return "";
+        string reference;
+        if (_endVerse != 0)
+        {
+            reference = $"{_book} {_chapter}:{_startVerse}-{_endVerse}  ";
+        }
+        else
+        {
+            reference = $"{_book} {_chapter}:{_startVerse}  ";
+        }
+        return reference;
     }
 }

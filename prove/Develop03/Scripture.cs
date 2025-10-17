@@ -4,11 +4,13 @@ class Scripture()
 {
     private List<Word> _words;
     private string _sentances;
+    private List<int> _hiddenIndexes;
 
 
 
-    public Scripture(string sentances) : this()
+    public Scripture(string sentances, List<int> hiddenIndexes) : this()
     {
+        _hiddenIndexes = hiddenIndexes;
         _words = new();
         _sentances = sentances;
         string strippedSentances = sentances;
@@ -24,18 +26,42 @@ class Scripture()
     public string HideWords()
     {
         string hiddenSentances = "";
+        int wordIndex = 0;
         foreach (Word word in _words)
         {
-            string wordName = word.GetRenderText();
-            Console.WriteLine(wordName);
-            string numHashes = "";
-            foreach (char letter in wordName) // CHANGE to only do this to some words, then replace wordName with some of the words.
+            foreach (int index in _hiddenIndexes)
             {
-                numHashes += "-";
+                word.Show();
+                if (index == wordIndex)
+                {
+                    word.Hide();
+                    break;
+                }
             }
+            string wordName = word.GetRenderText();
+            List<string> shownWords = [];
             hiddenSentances += wordName + " ";
+            wordIndex++;
         }
         return hiddenSentances;
+    }
+
+
+    public void SetHiddenIndexes(List<int> ints)
+    {
+        _hiddenIndexes = ints;
+    }
+
+
+    public List<int> GetHiddenIndexes()
+    {
+        return _hiddenIndexes;
+    }
+
+
+    public List<Word> GetWords()
+    {
+        return _words;
     }
 
 
@@ -47,6 +73,13 @@ class Scripture()
 
     public bool IsCompletlyHidden()
     {
-        return false;
+        foreach (Word word in _words)
+        {
+            if (!word.IsHidden())
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
