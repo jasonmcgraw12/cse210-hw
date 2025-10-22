@@ -1,6 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 
-class Scripture()
+class Scripture
 {
     private List<Word> _words;
     private string _sentances;
@@ -8,9 +8,9 @@ class Scripture()
 
 
 
-    public Scripture(string sentances, List<int> hiddenIndexes) : this()
+    public Scripture(string sentances)
     {
-        _hiddenIndexes = hiddenIndexes;
+        _hiddenIndexes = [];
         _words = new();
         _sentances = sentances;
         string strippedSentances = sentances;

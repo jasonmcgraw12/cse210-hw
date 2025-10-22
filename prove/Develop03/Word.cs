@@ -1,11 +1,11 @@
-class Word()
+class Word
 {
     private string _word;
     private string _hiddenWord;
     private string _shownWord;
 
 
-    public Word(string word) : this()
+    public Word(string word)
     {
         _shownWord = word;
         _word = word;

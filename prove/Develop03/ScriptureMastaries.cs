@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
-class ScriptureMastaries()
+class ScriptureMastaries
 {
     Reference reference = new("Proverbs", 3, 5, 6);
     Reference reference1 = new("Isaiah", 1, 18);
@@ -14,7 +14,7 @@ class ScriptureMastaries()
     Dictionary<Reference, string> referenceScriptures;
 
 
-    public ScriptureMastaries(int s) : this()
+    public ScriptureMastaries()
     {
         referenceScriptures = new() {
         {reference,"Trust in the Lord with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths." }

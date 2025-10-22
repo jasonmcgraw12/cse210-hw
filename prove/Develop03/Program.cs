@@ -37,10 +37,10 @@ class Program
         // }
         string input;
         bool isCompletlyHidden;
-        ScriptureMastaries scriptureMastaries = new(1);
+        ScriptureMastaries scriptureMastaries = new();
         KeyValuePair<Reference, string> referenceScripture = scriptureMastaries.GetReferenceAndScripture();
         Reference reference = referenceScripture.Key;
-        Scripture scripture = new(referenceScripture.Value, []); // should change the [] to not exist and instead just make an empty instance in the scripture code, but I'm almost done and feeling lazy
+        Scripture scripture = new(referenceScripture.Value); // should change the [] to not exist and instead just make an empty instance in the scripture code, but I'm almost done and feeling lazy
         do
         {
             Console.Clear();

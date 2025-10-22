@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-class Reference()
+class Reference
 {
     private string _book;
     private int _chapter;
@@ -9,7 +9,7 @@ class Reference()
 
 
 
-    public Reference(string book, int chapter, int startVerse, int endVerse) : this()
+    public Reference(string book, int chapter, int startVerse, int endVerse)
     {
         _book = book;
         _chapter = chapter;
@@ -18,7 +18,7 @@ class Reference()
     }
 
 
-    public Reference(string book, int chapter, int startVerse) : this()
+    public Reference(string book, int chapter, int startVerse)
     {
         _book = book;
         _chapter = chapter;
