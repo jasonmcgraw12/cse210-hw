@@ -1,13 +1,7 @@
 class BreathingActivity : Activity
 {
-
-
-
-
     public BreathingActivity(string startMessage, string endMessage) :
-                        base(startMessage, endMessage)
-    {
-    }
+                        base(startMessage, endMessage){}
     
 
     public void StartBreathing()
