@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 class Player
 {
     private string _name;
@@ -7,6 +9,8 @@ class Player
     private int _intelligence;
     private int _wisdom;
     private int _charisma;
+    private Weapon _weapon;
+    private Armor _armor;
     private Dictionary<Item, int> _inventory = new();
 
     public Player(
@@ -76,6 +80,18 @@ class Player
                 Console.WriteLine("I couldn't find the item you're looking for.");
             }
         }
-        Printer.PauseInput();
+        Printer.PauseInput("");
+    }
+
+    public void EquipItem(Item item)
+    {
+        if (item is Weapon weapon)
+        {
+            _weapon = weapon;
+        }
+        if (item is Armor armor)
+        {
+            _armor = armor;
+        }
     }
 }

@@ -1,0 +1,7 @@
+{
+    "attackName": "stab",
+    "statUsed": "dexterity",
+    "attackSynonyms": ["jab","stab","pierce"],
+    "staminaUsed": 3,
+    "damageRange": [1, 4]
+}
