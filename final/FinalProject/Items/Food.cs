@@ -1,7 +1,7 @@
 class Food : Item
 {
     
-    public Food(string name, int minImpactAmount, int maxImpactAmount) : base(name, minImpactAmount, maxImpactAmount){}
+    public Food(string name, int numberOfItem, int minImpactAmount, int maxImpactAmount) : base(name, numberOfItem, minImpactAmount, maxImpactAmount){}
     
     public override void Use(Player player)
     {

@@ -2,15 +2,17 @@ abstract class Item
 {
     // public Random rnd = new();
     private string _name;
+    private int _numberOfItem;
     private List<int> _effectRange = new();
 
     public abstract void Use(Player player);
 
-    public Item(string name, int minImpactAmount, int maxImpactAmount)
+    public Item(string name, int numberOfItem, int minImpactAmount, int maxImpactAmount)
     {
         _name = name;
         _effectRange.Add(minImpactAmount);
         _effectRange.Add(maxImpactAmount);
+        _numberOfItem = numberOfItem;
     }
 
     public List<int> GetEffectRange()
@@ -22,6 +24,11 @@ abstract class Item
     {
         Random rnd = new();
         return rnd.Next(_effectRange[0], _effectRange[1]);
+    }
+
+    public int GetNumber()
+    {
+        return _numberOfItem;
     }
 
     public override string ToString()

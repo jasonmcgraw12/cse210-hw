@@ -8,8 +8,8 @@ class Program
         string input = "";
         string fileName;
         Console.WriteLine("Welcome to a text dungeon adventure!");
-        Item apple = new Food("apple",1,2);
-        Player player = new("name",25,10,10,10,10,10);
+        Item apple = new Food("apple",1,1,2);
+        Player player = new("name",25,10,16,10,10);
         player.AddToInventory(apple);
         Weapon axe = new("axe", 1, 6);
         player.AddToInventory(axe);
@@ -17,8 +17,11 @@ class Program
         player.AddToInventory(shield);
         player.DisplayInventory();
 
-        Enemy goblin = new Goblin();
-        goblin.Display();
+        // Enemy goblin = new Goblin();
+        // goblin.Display();
+
+        Room room = new Vault();
+        player.EnterRoom(room);
 
 
         

@@ -1,21 +1,35 @@
 public class Printer
 {
-    public static void PauseInput(string message, bool shouldClear = true)
+    public static string PauseInput(string message, bool shouldClear = true)
     {
+        string input;
         if (message != "")
         {
             Console.WriteLine(message);
         }
         Console.WriteLine("(Press 'enter' to continue)");
-        Console.ReadLine();
+        input = Console.ReadLine();
         if (shouldClear)
         {
             Console.Clear();
         }
+        return input;
     }
 
     public static void PrintError(string error)
     {
         PauseInput("Error: "+error);
+    }
+
+    public static string ChallengeWriteRead(string message, bool shouldClear = true)
+    {
+        string input;
+        Console.WriteLine(message+" (Enter 'yes' if you would like to perform the action)");
+        input = Console.ReadLine();
+        if (shouldClear)
+        {
+            Console.Clear();
+        }
+        return input;
     }
 }

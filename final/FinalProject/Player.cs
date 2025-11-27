@@ -7,7 +7,6 @@ class Player
     private int _strength;
     private int _dexterity;
     private int _intelligence;
-    private int _wisdom;
     private int _charisma;
     private Weapon _weapon;
     private Armor _armor;
@@ -19,7 +18,6 @@ class Player
     int strength, 
     int dexterity, 
     int intelligence, 
-    int wisdom, 
     int charisma)
     {
         _name = name;
@@ -27,7 +25,6 @@ class Player
         _strength = strength;
         _dexterity = dexterity;
         _intelligence = intelligence;
-        _wisdom = wisdom;
         _charisma = charisma;
     }
 
@@ -36,15 +33,44 @@ class Player
         _health += changeAmount;
     }
 
+    public int GetStat(string statName)
+    {
+        if (statName == "health")
+        {
+            return _health;
+        }
+        else if (statName == "strength")
+        {
+            return _strength;
+        }
+        else if (statName == "dexterity")
+        {
+            return _dexterity;
+        }
+        else if (statName == "inteligence")
+        {
+            return _intelligence;
+        }
+        else if (statName == "charisma")
+        {
+            return _charisma;
+        }
+        else
+        {
+            Printer.PrintError($"The stat '{statName}' does not exist. Returning 0");
+            return 0;
+        }
+    }
+
     public void AddToInventory(Item item)
     {
         if (_inventory.ContainsKey(item))
         {
-            _inventory[item]++;
+            _inventory[item] += item.GetNumber();
         }
         else
         {
-            _inventory[item] = 1;
+            _inventory[item] = item.GetNumber();
         }
     }
 
@@ -93,5 +119,16 @@ class Player
         {
             _armor = armor;
         }
+    }
+
+    public void EnterRoom(Room room)
+    {
+        room.SetPlayer(this);
+        room.Display();
+    }
+
+    public void LevelUp()
+    {
+        // CONTINUE making this
     }
 }
