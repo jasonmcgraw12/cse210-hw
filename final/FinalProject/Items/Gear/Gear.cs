@@ -4,6 +4,6 @@ class Gear : Item
     public override void Use(Player player)
     {
         player.EquipItem(this);
-        // Printer.PauseInput($"You equipped your {this}");
+        Console.WriteLine($"You equipped your {this}");
     }
 }

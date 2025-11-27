@@ -7,7 +7,7 @@ public class Printer
             Console.WriteLine(message);
         }
         Console.WriteLine("(Press 'enter' to continue)");
-        Console.Read();
+        Console.ReadLine();
         if (shouldClear)
         {
             Console.Clear();

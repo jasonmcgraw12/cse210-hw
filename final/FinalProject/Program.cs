@@ -11,11 +11,16 @@ class Program
         Item apple = new Food("apple",1,2);
         Player player = new("name",25,10,10,10,10,10);
         player.AddToInventory(apple);
-        Weapon axe = new("axe",1,6);
+        Weapon axe = new("axe", 1, 6);
         player.AddToInventory(axe);
         Armor shield = new("shield",1,3);
         player.AddToInventory(shield);
         player.DisplayInventory();
+
+        Enemy goblin = new Goblin();
+        goblin.Display();
+
+
         
 
 

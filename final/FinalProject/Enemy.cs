@@ -14,4 +14,9 @@ class Enemy
         _attacks = attacks;
         _lootTable = lootTable;
     }
+
+    public void Display()
+    {
+        Printer.PrintError($"Goblin is created with {_lootTable} in it's pockets");
+    }
 }
