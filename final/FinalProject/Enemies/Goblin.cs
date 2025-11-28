@@ -9,7 +9,7 @@ class Goblin : Enemy
         , 10
         , 10
         , new List<Attack>(){new Stab()}
-        , new Dictionary<Item, double>(){{new Dagger(), 0.1}, {new Coin(5), 1.0}, {new Xp(50), 1.0}}){}
+        , new Dictionary<Item, double>(){{new Dagger(), 0.4}, {new Coin(5), 1.0}, {new Xp(50), 1.0}}){}
     // }
 
     // private Goblin(string name, int health, List<Attack> attacks, Dictionary<Item, double> lootTable) : base(name, health, health, attacks, lootTable){}

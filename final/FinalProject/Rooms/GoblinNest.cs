@@ -3,7 +3,7 @@ class GoblinNest : Room
     public GoblinNest() : base(
         "A Hideout for Goblins"
         , "You walk in on a pack of goblins having a family dinner."
-        , new List<Enemy>(){new Goblin(), new Goblin(), new Goblin()}
+        , new List<Enemy>(){new Goblin(), new Goblin(), new Goblin(), new Goblin()}
         , null
         // new StatCheck(
         //     "Would you like to pick the lock?"

@@ -176,10 +176,15 @@ class Player
     {
         if (item is Weapon weapon)
         {
+            if (_weapon.ToString() != "fists")
+            {
+                AddToInventory(_weapon);
+            }
             _weapon = weapon;
         }
         if (item is Armor armor)
         {
+            // WARNING when armor is included in the game make sure you get the previous armor your player is wearing.
             _armor = armor;
         }
     }
