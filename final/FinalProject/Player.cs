@@ -6,7 +6,9 @@ class Player
     private string _name;
     private int _coins;
     private int _xp;
-    private int _xpGoal = 300;
+    private int _level = 1;
+    private int _skillPoints;
+    private int _xpGoal = 100;
     private int _health;
     private int _strength;
     private int _dexterity;
@@ -197,6 +199,58 @@ class Player
 
     public void LevelUp()
     {
-        // CONTINUE making this
+        _level++;
+        _xpGoal = 100*_level;
+        _xp = 0;
+        _skillPoints += 2;
+        DisplayStats();
+    }
+
+    public void DisplayStats()
+    {
+        string displayMessage = $"""
+            1. health ({_health})
+            2. strength ({_strength})
+            3. dexterity ({_dexterity})
+            4. intelligence ({_intelligence})
+            5. charisma ({_charisma})
+            """;
+        if (_skillPoints > 0)
+        {
+            displayMessage = $"""
+            What stat would you like to increase?
+            1. health ({_health})
+            2. strength ({_strength})
+            3. dexterity ({_dexterity})
+            4. intelligence ({_intelligence})
+            5. charisma ({_charisma})
+            """;
+            string input = Printer.WriteRead(displayMessage);
+            if (input == "1" || input.ToLower() == "health")
+            {
+                _health += 10;
+            }
+            else if (input == "2" || input.ToLower() == "strength")
+            {
+                _strength += 1;
+            }
+            else if (input == "3" || input.ToLower() == "dexterity")
+            {
+                _dexterity += 1;
+            }
+            else if (input == "4" || input.ToLower() == "intelligence")
+            {
+                _intelligence += 1;
+            }
+            else if (input == "5" || input.ToLower() == "charisma")
+            {
+                _charisma += 1;
+            }
+        }
+        else
+        {
+            Printer.PauseInput(displayMessage);
+        }
+        
     }
 }
