@@ -3,6 +3,7 @@ class Room
     string _title;
     string _description;
     List<Enemy> _enemies = new();
+    List<Enemy> _dyingEnemies = new();
     StatCheck _challenge;
     Player _player;
     // List<Contraption> contraptions = new();
@@ -21,6 +22,11 @@ class Room
         _player = player;
     }
 
+    public void SetDyingEnemy(Enemy enemy)
+    {
+        _dyingEnemies.Add(enemy);
+    }
+
     public void Display(Player player)
     {
         Printer.PauseInput(_description);
@@ -34,26 +40,35 @@ class Room
         }
     }
 
+    public Dictionary<string, Enemy> DisplayEnemies()
+    {
+        int i = 1;
+        Dictionary<string, Enemy> enemyDict = new();
+        foreach (Enemy enemy in _enemies)
+        {
+            enemy.CheckDeath(this);
+        }
+        RemoveEnemies();
+        foreach (Enemy enemy in _enemies)
+            {
+                Console.Write($"{i}. ");
+                enemyDict[i.ToString()] = enemy;
+                enemy.Display();
+                i++;
+            }
+        return enemyDict;
+    }
+
     public void ContinueCombat(Player player)
     {
         string input = null;
-        int i = 1;
         foreach (Enemy enemy in _enemies)
         {
-            Console.Write($"{i}. ");
-            if (i == 1)
-            {
-                enemy.Display();
-            }
-            else
-            {
-                Console.Write(", ");
-                enemy.Display();
-            }
-            Console.WriteLine();
-            i++;
+            enemy.AttackPlayer(player);
         }
-        while(input != "2")
+        Console.WriteLine($"Enemies in {_title}");
+        DisplayEnemies();
+        while(input != "2") // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
         {
         input = Printer.WriteRead("""
         What would you like to do?
@@ -66,32 +81,42 @@ class Room
             }
         else if (input == "2")
             {
-                player.DisplayAttacks();
-                Printer.PauseInput("");
-                // CHANGE let user pick attack here
+                Attack attack = player.DisplayAttacks();
+                Dictionary<string, Enemy> enemyDict = DisplayEnemies();
+                input = Printer.WriteRead("(Enter the corrisponding number of the enemy you want to target.)");
+
+                Enemy target = null;
+                if (enemyDict.ContainsKey(input))
+                {
+                    target = enemyDict[input];
+                }
+                else
+                {
+                    Printer.PrintError("The number you inputed doesn't match an enemy. there's no behavior for this");
+                }
+                player.MakeAttack(attack, target);
+                Console.Clear();
+                DisplayEnemies();
             }
         }
         // player turn here
-        foreach (Enemy enemy in _enemies)
-        {
-            enemy.CheckDeath(this); // WARNING can probably combine this with the top foreach loop
-        }
-        foreach (Enemy enemy in _enemies)
-        {
-            enemy.AttackPlayer(player);
-        }
-    }
-
-    public void RemoveEnemy(Enemy dyingEnemy)
-    {
-        _enemies.Remove(dyingEnemy);
         // foreach (Enemy enemy in _enemies)
         // {
-        //     if (enemy == dyingEnemy)
-        //     {
-                
-        //     }
+        //     enemy.CheckDeath(this); // WARNING can probably combine this with the top foreach loop
         // }
+        // foreach (Enemy enemy in _enemies)
+        // {
+        //     enemy.AttackPlayer(player);
+        // }
+    }
+
+    public void RemoveEnemies()
+    {
+        foreach (Enemy dyingEnemy in _dyingEnemies)
+        {
+            _enemies.Remove(dyingEnemy);
+        }
+        _dyingEnemies.Clear();
     }
 
     public void Test()

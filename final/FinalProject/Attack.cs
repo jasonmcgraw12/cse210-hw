@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 class Attack
 {
     private string _name;
@@ -22,11 +24,19 @@ class Attack
         return _staminaUsed;
     }
 
-    public void Hit(Player player)
+    public void Hit(object target)
     {
         Random rnd = new();
         int damage = -rnd.Next(_minDamage, _maxDamage);
-        player.SetHealth(damage);
+        switch (target)
+        {
+            case Player player:
+                player.SetHealth(damage);
+                break;
+            case Enemy enemy:
+                enemy.SetHealth(damage);
+                break;
+        }
     }
 
     public override string ToString()

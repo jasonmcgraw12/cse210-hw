@@ -22,9 +22,14 @@ class Enemy
         _lootTable = lootTable;
     }
 
+    public void SetHealth(int damage)
+    {
+        _currentHealth += damage;
+    }
+
     public void Display()
     {
-        Console.Write($"Goblin: {_currentHealth}");
+        Console.WriteLine($"Goblin: {_currentHealth}");
     }
 
     public void AttackPlayer(Player player)
@@ -71,7 +76,7 @@ class Enemy
                         Printer.PrintError($"Spawning items on enemy death is not fully set up yet.");
                     }
                 }
-            room.RemoveEnemy(this);
+            room.SetDyingEnemy(this);
         }
     }
 }

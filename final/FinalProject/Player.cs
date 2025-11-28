@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using Microsoft.VisualBasic;
 
 class Player
@@ -77,11 +78,12 @@ class Player
     public void DisplayInventory()
     {
         bool usedItem = false;
-        Index index = 1;
+        int i = 1;
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
-            Console.WriteLine($"{index}. {item}");
+            Console.WriteLine($"{i}. {item}");
+            i++;
         }
         string itemString = Console.ReadLine();
 
@@ -109,12 +111,46 @@ class Player
         Printer.PauseInput("");
     }
 
-    public void DisplayAttacks()
+    public Attack DisplayAttacks()
     {
+        string input;
+        Attack attackChoice = null;
+        Dictionary<string, Attack> attackDict = new();
+        Console.WriteLine("What attack would you like to perform?");
+        int i = 1;
         foreach (Attack attack in _weapon.GetAttacks())
         {
-            Console.WriteLine($"{attack}");
+            attackDict[i.ToString()] = attack;
+            Console.WriteLine($"{i}. {attack}");
+            i++;
         }
+        input = Console.ReadLine();
+
+        if (attackDict.ContainsKey(input))
+        {
+            attackChoice = attackDict[input];
+        }
+        else
+        {
+            foreach (Attack attack in _weapon.GetAttacks())
+            {
+                if (input == attack.ToString())
+                {
+                    attackChoice = attack;
+                }
+            }
+        }
+        if (attackChoice == null)
+        {
+            Printer.PrintError("The attack was not found, returning punch");
+            attackChoice = new Punch();
+        }
+        return attackChoice;
+    }
+
+    public void MakeAttack(Attack attack, Enemy enemy)
+    {
+        attack.Hit(enemy);
     }
 
     public void EquipItem(Item item)
