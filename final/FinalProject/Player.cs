@@ -4,6 +4,9 @@ using Microsoft.VisualBasic;
 class Player
 {
     private string _name;
+    private int _coins;
+    private int _xp;
+    private int _xpGoal = 300;
     private int _health;
     private int _strength;
     private int _dexterity;
@@ -65,7 +68,15 @@ class Player
 
     public void AddToInventory(Item item)
     {
-        if (_inventory.ContainsKey(item))
+        if (item is Coin coin)
+        {
+            _coins += coin.GetNumber();
+        }
+        else if (item is Xp xp)
+        {
+            _xp += xp.GetNumber();
+        }
+        else if (_inventory.ContainsKey(item))
         {
             _inventory[item] += item.GetNumber();
         }
@@ -79,19 +90,22 @@ class Player
     {
         bool usedItem = false;
         int i = 1;
+        Dictionary<string, Item> itemDict = new();
+        Console.WriteLine($"Coins: {_coins} \nXP: {_xp}/{_xpGoal}");
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
             Console.WriteLine($"{i}. {item}");
+            itemDict[i.ToString()] = item;
             i++;
         }
-        string itemString = Console.ReadLine();
+        string input = Console.ReadLine();
 
-        if (itemString != "")
+        if (input != "")
         {
             foreach (Item item in _inventory.Keys)
             {
-                if (item.ToString() == itemString)
+                if (item.ToString() == input || (itemDict.ContainsKey(input) && itemDict[input].ToString() == item.ToString()))
                 {
                     item.Use(this);
                     usedItem = true;
@@ -102,6 +116,11 @@ class Player
                     }
                     break;
                 }
+                // else if (itemDict.ContainsKey(input))
+                // {
+                //     item.Use(this);
+
+                // }
             }
             if (usedItem == false)
             {

@@ -5,6 +5,6 @@ class Coin : Item
     
     public override void Use(Player player)
     {
-        Console.WriteLine("You love hearing coins jingle in your pocket");
+        Printer.PrintError("You should not be able to use coins");
     }
 }
