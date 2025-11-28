@@ -4,7 +4,8 @@ class Attack
     private string _statUsed;
     private List<string> _attackSynonyms;
     private int _staminaUsed;
-    private List<int> _damageRange;
+    private int _minDamage;
+    private int _maxDamage;
 
     public Attack(string name, string statUsed, List<string> attackSynonyms, int staminaUsed, List<int> damageRange)
     {
@@ -12,6 +13,24 @@ class Attack
         _statUsed = statUsed;
         _attackSynonyms = attackSynonyms;
         _staminaUsed = staminaUsed;
-        _damageRange = damageRange;
+        _minDamage = damageRange[0];
+        _maxDamage = damageRange[1];
+    }
+
+    public int GetStaminaUsed()
+    {
+        return _staminaUsed;
+    }
+
+    public void Hit(Player player)
+    {
+        Random rnd = new();
+        int damage = -rnd.Next(_minDamage, _maxDamage);
+        player.SetHealth(damage);
+    }
+
+    public override string ToString()
+    {
+        return _name;
     }
 }

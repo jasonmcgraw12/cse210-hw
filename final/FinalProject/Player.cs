@@ -8,7 +8,7 @@ class Player
     private int _dexterity;
     private int _intelligence;
     private int _charisma;
-    private Weapon _weapon;
+    private Weapon _weapon = new Fists();
     private Armor _armor;
     private Dictionary<Item, int> _inventory = new();
 
@@ -30,7 +30,7 @@ class Player
 
     public void SetHealth(int changeAmount)
     {
-        _health += changeAmount;
+        _health += changeAmount; // WARNING put armor calculations here
     }
 
     public int GetStat(string statName)
@@ -109,6 +109,14 @@ class Player
         Printer.PauseInput("");
     }
 
+    public void DisplayAttacks()
+    {
+        foreach (Attack attack in _weapon.GetAttacks())
+        {
+            Console.WriteLine($"{attack}");
+        }
+    }
+
     public void EquipItem(Item item)
     {
         if (item is Weapon weapon)
@@ -124,7 +132,7 @@ class Player
     public void EnterRoom(Room room)
     {
         room.SetPlayer(this);
-        room.Display();
+        room.Display(this);
     }
 
     public void LevelUp()

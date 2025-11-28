@@ -21,10 +21,10 @@ public class Printer
         PauseInput("Error: "+error);
     }
 
-    public static string ChallengeWriteRead(string message, bool shouldClear = true)
+    public static string WriteRead(string message, bool shouldClear = true)
     {
         string input;
-        Console.WriteLine(message+" (Enter 'yes' if you would like to perform the action)");
+        Console.WriteLine(message);
         input = Console.ReadLine();
         if (shouldClear)
         {
@@ -32,4 +32,11 @@ public class Printer
         }
         return input;
     }
+
+    public static string ChallengeWriteRead(string message, bool shouldClear = true)
+    {
+        return WriteRead(message + " (Enter 'yes' if you would like to perform the action)");
+    }
+
+
 }

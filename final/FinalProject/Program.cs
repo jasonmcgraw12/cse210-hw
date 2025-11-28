@@ -11,7 +11,7 @@ class Program
         Item apple = new Food("apple",1,1,2);
         Player player = new("name",25,10,16,10,10);
         player.AddToInventory(apple);
-        Weapon axe = new("axe", 1, 6);
+        Axe axe = new Axe();
         player.AddToInventory(axe);
         Armor shield = new("shield",1,3);
         player.AddToInventory(shield);
@@ -23,7 +23,8 @@ class Program
         Room room = new Vault();
         player.EnterRoom(room);
 
-
+        Room room1 = new GoblinNest();
+        player.EnterRoom(room1);
         
 
 
