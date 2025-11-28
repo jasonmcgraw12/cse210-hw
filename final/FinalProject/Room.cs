@@ -62,13 +62,14 @@ class Room
     public void ContinueCombat(Player player)
     {
         string input = null;
+        bool didPerformAction = false;
         foreach (Enemy enemy in _enemies)
         {
             enemy.AttackPlayer(player);
         }
         Console.WriteLine($"Enemies in {_title}");
         DisplayEnemies();
-        while(input != "2") // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
+        while(!didPerformAction) // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
         {
         input = Printer.WriteRead("""
         What would you like to do?
@@ -89,6 +90,7 @@ class Room
                 if (enemyDict.ContainsKey(input))
                 {
                     target = enemyDict[input];
+                    didPerformAction = true;
                 }
                 else
                 {
