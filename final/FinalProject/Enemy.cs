@@ -73,7 +73,9 @@ class Enemy
                     double probability = _lootTable[item];
                     if (chance <= probability)
                     {
-                        Printer.PrintError($"Spawning items on enemy death is not fully set up yet.");
+                        Player player = room.GetPlayer();
+                        player.AddToInventory(item);
+                        Printer.PauseInput($"You recieved {item.GetNumber()} {item} for killing the {this}!");
                     }
                 }
             room.SetDyingEnemy(this);

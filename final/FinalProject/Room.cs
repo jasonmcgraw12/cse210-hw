@@ -27,6 +27,10 @@ class Room
         _dyingEnemies.Add(enemy);
     }
 
+    public Player GetPlayer()
+    {
+        return _player;
+    }
     public void Display(Player player)
     {
         Printer.PauseInput(_description);
