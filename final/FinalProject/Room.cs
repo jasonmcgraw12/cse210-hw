@@ -22,6 +22,11 @@ class Room
         _player = player;
     }
 
+    public void AddEnemy(Enemy enemy)
+    {
+        _enemies.Add(enemy);
+    }
+
     public void SetDyingEnemy(Enemy enemy)
     {
         _dyingEnemies.Add(enemy);

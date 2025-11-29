@@ -68,6 +68,16 @@ class Player
         }
     }
 
+    public int GetLevel()
+    {
+        return _level;
+    }
+
+    public override string ToString()
+    {
+        return _name;
+    }
+
     public void AddToInventory(Item item)
     {
         if (item is Coin coin)

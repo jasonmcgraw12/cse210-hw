@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 class Program
@@ -7,24 +8,87 @@ class Program
     {
         string input = "";
         string fileName;
+        int roomNumber = 0;
+        
         Console.WriteLine("Welcome to a text dungeon adventure!");
         Item apple = new Food("apple",1,1,2);
-        Player player = new("name",25,10,16,10,10);
+        Player player = new("name",25,10,10,10,10);
+        List<Room> rooms = new()
+
+        {
+            new Vault(player.GetLevel())
+            , new GoblinNest(player.GetLevel())
+            // WARNING add rooms I create here, maybe make rooms change based on player level
+        };
         player.AddToInventory(apple);
         Axe axe = new Axe();
         player.AddToInventory(axe);
         Armor shield = new("shield",1,3);
         player.AddToInventory(shield);
-        player.DisplayInventory();
+        
 
-        // Enemy goblin = new Goblin();
-        // goblin.Display();
+        while (input != "4")
+        {
+            input = Printer.WriteRead("""
+            What would you like to do?
+            1. Check inventory
+            2. Check stats
+            3. Move forward in dungeon
+            4. Save and exit
+            """);
+            if (input == "1")
+            {
+                player.DisplayInventory();
+            }
+            else if (input == "2")
+            {
+                player.DisplayStats();
+            }
+            else if (input == "3")
+            {
+                Room room = GetRandomRoom();
+                player.EnterRoom(room);
 
-        Room room = new Vault();
-        player.EnterRoom(room);
+            }
+            else if (input == "4")
+            {
+                Console.WriteLine($"See you later {player.ToString()}");
+            }
+        }
 
-        Room room1 = new GoblinNest();
-        player.EnterRoom(room1);
+        Room GetRandomRoom()
+        {
+            Random rnd = new();
+            if (roomNumber == 0)
+            {
+                // put beginning of dungeon here
+            }
+            else if (roomNumber % 10 == 0)
+            {
+                // put boss floors here
+            }
+            else if (roomNumber % 5 == 0)
+            {
+                // put shop and interactable floors here
+            }
+            else
+            {
+                int i = rnd.Next(rooms.Count());
+                return rooms[i];
+            }
+            // string compilerPath = AppContext.BaseDirectory;
+            // string path = compilerPath+"../../../";
+            // string[] roomFiles = Directory.GetFiles(path);
+        }
+
+        // // Enemy goblin = new Goblin();
+        // // goblin.Display();
+
+        // Room room = new Vault();
+        // player.EnterRoom(room);
+
+        // Room room1 = new GoblinNest();
+        // player.EnterRoom(room1);
         
 
 
