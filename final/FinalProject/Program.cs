@@ -11,7 +11,7 @@ class Program
         int roomNumber = 0;
         
         Console.WriteLine("Welcome to a text dungeon adventure!");
-        Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
+        Player player = new("name",5,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
         List<Func<Room>> beginningRooms = new()
         {
             () => new Cave(player.GetLevel())

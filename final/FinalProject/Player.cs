@@ -87,6 +87,15 @@ class Player
         return _name;
     }
 
+    public void CheckDeath()
+    {
+        if (_currentHealth <= 0)
+        {
+            Printer.PauseInput("You died.");
+            // WARNING save game here.
+            Environment.Exit(0);
+        }
+    }
     public void AddToInventory(Item item)
     {
         if (item is Coin coin)

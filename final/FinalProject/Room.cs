@@ -72,7 +72,6 @@ class Room
     {
         string input = null;
         bool didPerformAction = false;
-        
         Console.WriteLine($"Enemies in {_title}");
         DisplayEnemies();
         while(!didPerformAction) // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
@@ -120,6 +119,7 @@ class Room
         foreach (Enemy enemy in _enemies)
         {
             enemy.AttackPlayer(player);
+            player.CheckDeath();
         }
     }
 
