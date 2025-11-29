@@ -71,7 +71,7 @@ class Enemy
         {
             string attackSynonym = attackChoice.GetSynonym();
             int damage = attackChoice.Hit(player);
-            Printer.PauseInput($"The {this} {attackSynonym} you dealing {damage} damage.");
+            Printer.PauseInput($"The {this} {attackSynonym} you dealing {damage} damage. \nHealth: {player.GetStat("currentHealth")}/{player.GetStat("health")}");
         }
     }
 

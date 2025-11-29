@@ -15,6 +15,11 @@ abstract class Item
         _numberOfItem = numberOfItem;
     }
 
+    public void SetNumber(int changeNumber)
+    {
+        _numberOfItem += changeNumber;
+    }
+
     public List<int> GetEffectRange()
     {
         return _effectRange;

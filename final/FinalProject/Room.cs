@@ -57,7 +57,6 @@ class Room
         // {
         //     enemy.CheckDeath(this);
         // }
-        RemoveEnemies();
         foreach (Enemy enemy in _enemies)
             {
                 Console.Write($"{i}. ");
@@ -88,22 +87,27 @@ class Room
         else if (input == "2")
             {
                 Attack attack = player.DisplayAttacks();
-                Dictionary<string, Enemy> enemyDict = DisplayEnemies();
-                input = Printer.WriteRead("(Enter the corrisponding number of the enemy you want to target.)");
-
-                Enemy target = null;
-                if (enemyDict.ContainsKey(input))
+                Dictionary<string, Enemy> enemyDict = new();
+                while (!enemyDict.ContainsKey(input))
                 {
-                    target = enemyDict[input];
-                    didPerformAction = true;
+                    enemyDict = DisplayEnemies();
+                    input = Printer.WriteRead("(Enter the corrisponding number of the enemy you want to target.)");
+                    // Enemy target = null;
+                    if (enemyDict.ContainsKey(input))
+                    {
+                        Enemy target = enemyDict[input];
+                        didPerformAction = true;
+                        player.MakeAttack(attack, target);
+                        target.CheckDeath(this);
+                    }
+                    else
+                    {
+                        Printer.PauseInput("That input doesn't work. Please enter the number of the corrisponding creature when attacking (for example enter '1' durring the next question).");
+                    }
+                    
+                    Console.Clear();
                 }
-                else
-                {
-                    Printer.PrintError("The number you inputed doesn't match an enemy. there's no behavior for this");
-                }
-                player.MakeAttack(attack, target);
-                target.CheckDeath(this);
-                Console.Clear();
+                
                 // DisplayEnemies();
             }
         }
@@ -116,6 +120,7 @@ class Room
         // {
         //     enemy.AttackPlayer(player);
         // }
+        RemoveEnemies();
         foreach (Enemy enemy in _enemies)
         {
             enemy.AttackPlayer(player);

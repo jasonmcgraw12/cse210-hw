@@ -5,13 +5,12 @@ class Food : Item
     
     public override void Use(Player player)
     {
+        SetNumber(-1);
         int amount = GetEffectAmount();
         if (player.GetStat("health") > player.GetStat("currentHealth"))
         {
             player.SetHealth(amount);
-            Console.WriteLine($"You munch on the {ToString()} healing {amount}");
+            Console.WriteLine($"You munch on the {ToString()} healing {amount}. You now have {player.GetStat("currentHealth")}");
         }
-
-        
     }
 }

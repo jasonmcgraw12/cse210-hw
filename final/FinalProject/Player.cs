@@ -29,6 +29,7 @@ class Player
     {
         _name = name;
         _health = health;
+        _currentHealth = health;
         _strength = strength;
         _dexterity = dexterity;
         _intelligence = intelligence;
@@ -112,7 +113,26 @@ class Player
         }
         else
         {
-            _inventory[item] = item.GetNumber();
+            bool didAddToInventory = false;
+            foreach (Item inventoryItem in _inventory.Keys)
+            {
+                if (inventoryItem.ToString() == item.ToString())
+                {
+                    _inventory[inventoryItem] += item.GetNumber();
+                    didAddToInventory = true;
+                }
+            }
+            if (!didAddToInventory)
+            {
+                if (item.GetNumber() > 0)
+                {
+                    _inventory[item] = item.GetNumber();
+                }
+                else
+                {
+                    _inventory[item] = 1;
+                }
+            }
         }
     }
 
@@ -125,7 +145,7 @@ class Player
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
-            Console.WriteLine($"{i}. {item}");
+            Console.WriteLine($"{i}. {item} [{item.GetNumber()}]");
             itemDict[i.ToString()] = item;
             i++;
         }
@@ -140,6 +160,7 @@ class Player
                     item.Use(this);
                     usedItem = true;
                     _inventory[item]--;
+                    // item.SetNumber(-1);
                     if (_inventory[item] <= 0)
                     {
                         _inventory.Remove(item);
@@ -247,7 +268,7 @@ class Player
     public void DisplayStats()
     {
         string displayMessage = $"""
-            1. health ({_health})
+            1. health ({_currentHealth}/{_health})
             2. strength ({_strength})
             3. dexterity ({_dexterity})
             4. intelligence ({_intelligence})

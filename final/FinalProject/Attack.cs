@@ -41,23 +41,23 @@ class Attack
     public int Hit(object target)
     {
         Random rnd = new();
-        int damage = -rnd.Next(_minDamage, _maxDamage);
+        int damage = rnd.Next(_minDamage, _maxDamage);
         if (_owner is Enemy ownerEnemy)
         {
-            damage -= ownerEnemy.GetLevel();
+            damage += ownerEnemy.GetLevel();
         }
         else if (_owner is Player ownerPlayer)
         {
-            damage -= ownerPlayer.GetStat(_statUsed)/5;
+            damage += ownerPlayer.GetStat(_statUsed)/5;
         }
         
         switch (target)
         {
             case Player targetPlayer:
-                targetPlayer.SetHealth(damage);
+                targetPlayer.SetHealth(-damage);
                 break;
             case Enemy targetEnemy:
-                targetEnemy.SetHealth(damage);
+                targetEnemy.SetHealth(-damage);
                 break;
         }
         return damage;
