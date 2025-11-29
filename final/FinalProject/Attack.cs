@@ -25,13 +25,20 @@ class Attack
         return _staminaUsed;
     }
 
+    public string GetSynonym()
+    {
+        Random rnd = new();
+        int i = rnd.Next(_attackSynonyms.Count());
+        return _attackSynonyms[i];
+    }
+
     public void SetOwner(Object owner)
     {
         // WARNING might need to cast object as a player or enemy
         _owner = owner;
     }
 
-    public void Hit(object target)
+    public int Hit(object target)
     {
         Random rnd = new();
         int damage = -rnd.Next(_minDamage, _maxDamage);
@@ -53,6 +60,7 @@ class Attack
                 targetEnemy.SetHealth(damage);
                 break;
         }
+        return damage;
     }
 
     public override string ToString()

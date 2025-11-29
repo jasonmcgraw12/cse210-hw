@@ -53,10 +53,10 @@ class Room
     {
         int i = 1;
         Dictionary<string, Enemy> enemyDict = new();
-        foreach (Enemy enemy in _enemies)
-        {
-            enemy.CheckDeath(this);
-        }
+        // foreach (Enemy enemy in _enemies)
+        // {
+        //     enemy.CheckDeath(this);
+        // }
         RemoveEnemies();
         foreach (Enemy enemy in _enemies)
             {
@@ -72,10 +72,7 @@ class Room
     {
         string input = null;
         bool didPerformAction = false;
-        foreach (Enemy enemy in _enemies)
-        {
-            enemy.AttackPlayer(player);
-        }
+        
         Console.WriteLine($"Enemies in {_title}");
         DisplayEnemies();
         while(!didPerformAction) // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
@@ -106,8 +103,9 @@ class Room
                     Printer.PrintError("The number you inputed doesn't match an enemy. there's no behavior for this");
                 }
                 player.MakeAttack(attack, target);
+                target.CheckDeath(this);
                 Console.Clear();
-                DisplayEnemies();
+                // DisplayEnemies();
             }
         }
         // player turn here
@@ -119,6 +117,10 @@ class Room
         // {
         //     enemy.AttackPlayer(player);
         // }
+        foreach (Enemy enemy in _enemies)
+        {
+            enemy.AttackPlayer(player);
+        }
     }
 
     public void RemoveEnemies()

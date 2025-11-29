@@ -193,7 +193,9 @@ class Player
 
     public void MakeAttack(Attack attack, Enemy enemy)
     {
-        attack.Hit(enemy);
+        string attackSynonym = attack.GetSynonym();
+        int damage = attack.Hit(enemy);
+        Printer.PauseInput($"You {attackSynonym} the {enemy} dealing {damage} damage.");
     }
 
     public void EquipItem(Item item)

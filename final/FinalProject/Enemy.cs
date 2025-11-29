@@ -69,7 +69,9 @@ class Enemy
         }
         else
         {
-            attackChoice.Hit(player);
+            string attackSynonym = attackChoice.GetSynonym();
+            int damage = attackChoice.Hit(player);
+            Printer.PauseInput($"The {this} {attackSynonym} you dealing {damage} damage.");
         }
     }
 
