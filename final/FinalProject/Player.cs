@@ -10,17 +10,18 @@ class Player
     private int _skillPoints;
     private int _xpGoal = 100;
     private int _health;
+    private int _currentHealth;
     private int _strength;
     private int _dexterity;
     private int _intelligence;
     private int _charisma;
-    private Weapon _weapon = new Fists();
+    private Weapon _weapon = new Dagger();
     private Armor _armor;
     private Dictionary<Item, int> _inventory = new();
 
     public Player(
     string name,
-    int health, 
+    int health,
     int strength, 
     int dexterity, 
     int intelligence, 
@@ -36,7 +37,11 @@ class Player
 
     public void SetHealth(int changeAmount)
     {
-        _health += changeAmount; // WARNING put armor calculations here
+        _currentHealth += changeAmount; // WARNING put armor calculations here
+        if (_currentHealth > _health)
+        {
+            _currentHealth = _health;
+        }
     }
 
     public int GetStat(string statName)
@@ -44,6 +49,10 @@ class Player
         if (statName == "health")
         {
             return _health;
+        }
+        else if (statName == "currentHealth")
+        {
+            return _currentHealth;
         }
         else if (statName == "strength")
         {
@@ -149,13 +158,15 @@ class Player
         Dictionary<string, Attack> attackDict = new();
         Console.WriteLine("What attack would you like to perform?");
         int i = 1;
-        foreach (Attack attack in _weapon.GetAttacks())
+        foreach (Attack attack in _weapon.GetAttacks(this))
         {
             attackDict[i.ToString()] = attack;
             Console.WriteLine($"{i}. {attack}");
             i++;
         }
         input = Console.ReadLine();
+        Console.Clear();
+        
 
         if (attackDict.ContainsKey(input))
         {
@@ -163,7 +174,7 @@ class Player
         }
         else
         {
-            foreach (Attack attack in _weapon.GetAttacks())
+            foreach (Attack attack in _weapon.GetAttacks(this))
             {
                 if (input == attack.ToString())
                 {
@@ -176,6 +187,7 @@ class Player
             Printer.PrintError("The attack was not found, returning punch");
             attackChoice = new Punch();
         }
+        Console.WriteLine($"You ready your {attackChoice} attack.");
         return attackChoice;
     }
 
@@ -209,11 +221,16 @@ class Player
 
     public void LevelUp()
     {
-        _level++;
-        _xpGoal = 100*_level;
-        _xp = 0;
-        _skillPoints += 2;
-        DisplayStats();
+        if (_xp >= _xpGoal)
+        {
+            Printer.PauseInput("You leveled up in the last room! You received 2 skill points.");
+            _xp -= _xpGoal;
+            _level++;
+            _xpGoal = 100*_level;
+            // _xp = 0;
+            _skillPoints += 2;
+            DisplayStats();
+        }
     }
 
     public void DisplayStats()
@@ -227,35 +244,46 @@ class Player
             """;
         if (_skillPoints > 0)
         {
-            displayMessage = $"""
-            What stat would you like to increase?
-            1. health ({_health})
-            2. strength ({_strength})
-            3. dexterity ({_dexterity})
-            4. intelligence ({_intelligence})
-            5. charisma ({_charisma})
-            """;
-            string input = Printer.WriteRead(displayMessage);
-            if (input == "1" || input.ToLower() == "health")
+            string input = "";
+            do
             {
-                _health += 10;
+                displayMessage = $"""
+                You have {_skillPoints} remaining skill points. What stat would you like to increase?
+                1. health ({_health})
+                2. strength ({_strength})
+                3. dexterity ({_dexterity})
+                4. intelligence ({_intelligence})
+                5. charisma ({_charisma})
+                """;
+                input = Printer.WriteRead(displayMessage);
+                if (input == "1" || input.ToLower() == "health")
+                {
+                    _health += 5;
+                    _skillPoints--;
+                }
+                else if (input == "2" || input.ToLower() == "strength")
+                {
+                    _strength += 1;
+                    _skillPoints--;
+                }
+                else if (input == "3" || input.ToLower() == "dexterity")
+                {
+                    _dexterity += 1;
+                    _skillPoints--;
+                }
+                else if (input == "4" || input.ToLower() == "intelligence")
+                {
+                    _intelligence += 1;
+                    _skillPoints--;
+                }
+                else if (input == "5" || input.ToLower() == "charisma")
+                {
+                    _charisma += 1;
+                    _skillPoints--;
+                }
             }
-            else if (input == "2" || input.ToLower() == "strength")
-            {
-                _strength += 1;
-            }
-            else if (input == "3" || input.ToLower() == "dexterity")
-            {
-                _dexterity += 1;
-            }
-            else if (input == "4" || input.ToLower() == "intelligence")
-            {
-                _intelligence += 1;
-            }
-            else if (input == "5" || input.ToLower() == "charisma")
-            {
-                _charisma += 1;
-            }
+            while (_skillPoints > 0 && (input == "1" || input == "2" || input == "3" || input == "4" || input == "5"));
+            
         }
         else
         {

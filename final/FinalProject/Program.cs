@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-
+// What is an interface in C#?
 class Program
 {
     static void Main(string[] args)
@@ -11,24 +11,31 @@ class Program
         int roomNumber = 0;
         
         Console.WriteLine("Welcome to a text dungeon adventure!");
-        Item apple = new Food("apple",1,1,2);
-        Player player = new("name",25,10,10,10,10);
-        List<Room> rooms = new()
-
+        Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
+        List<Func<Room>> beginningRooms = new()
         {
-            new Vault(player.GetLevel())
-            , new GoblinNest(player.GetLevel())
-            // WARNING add rooms I create here, maybe make rooms change based on player level
+            () => new Cave(player.GetLevel())
         };
-        player.AddToInventory(apple);
-        Axe axe = new Axe();
-        player.AddToInventory(axe);
-        Armor shield = new("shield",1,3);
-        player.AddToInventory(shield);
+        List<Func<Room>> rooms = new()
+        {
+            // Vault,GoblinNest
+            () => new Vault(player.GetLevel())
+            , () => new GoblinNest(player.GetLevel())
+            // WARNING add rooms I create here, maybe make rooms change based on player level
+        };// reset the variables in the room or create a lambda to make a new room
+
+
+        // Item apple = new Food("apple",1,1,2);
+        // player.AddToInventory(apple);
+        // Axe axe = new Axe();
+        // player.AddToInventory(axe);
+        // Armor shield = new("shield",1,3);
+        // player.AddToInventory(shield);
         
 
         while (input != "4")
         {
+            player.LevelUp();
             input = Printer.WriteRead("""
             What would you like to do?
             1. Check inventory
@@ -46,9 +53,9 @@ class Program
             }
             else if (input == "3")
             {
-                Room room = GetRandomRoom();
+                Room room = GetRandomRoom(player);
                 player.EnterRoom(room);
-
+                roomNumber++;
             }
             else if (input == "4")
             {
@@ -56,29 +63,39 @@ class Program
             }
         }
 
-        Room GetRandomRoom()
+        Room GetRandomRoom(Player player)
         {
+            int level = player.GetLevel();
             Random rnd = new();
             if (roomNumber == 0)
             {
-                // put beginning of dungeon here
+                int i = rnd.Next(beginningRooms.Count());
+                Room createdRoom = CreateRoom(beginningRooms, i);
+                return createdRoom;
             }
-            else if (roomNumber % 10 == 0)
-            {
-                // put boss floors here
-            }
-            else if (roomNumber % 5 == 0)
-            {
-                // put shop and interactable floors here
-            }
+            // else if (roomNumber % 10 == 0)
+            // {
+            //     // put boss floors here
+            // }
+            // else if (roomNumber % 5 == 0)
+            // {
+            //     // put shop and interactable floors here
+            // }
             else
             {
                 int i = rnd.Next(rooms.Count());
-                return rooms[i];
+                Room createdRoom = CreateRoom(rooms, i);
+                return createdRoom;
             }
             // string compilerPath = AppContext.BaseDirectory;
             // string path = compilerPath+"../../../";
             // string[] roomFiles = Directory.GetFiles(path);
+        }
+
+        Room CreateRoom(List<Func<Room>> roomFactories, int i)
+        {
+            Func<Room> factory = roomFactories[i];
+            return factory();
         }
 
         // // Enemy goblin = new Goblin();

@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 class Attack
 {
     private string _name;
+    private Object _owner;
     private string _statUsed;
     private List<string> _attackSynonyms;
     private int _staminaUsed;
@@ -24,17 +25,32 @@ class Attack
         return _staminaUsed;
     }
 
+    public void SetOwner(Object owner)
+    {
+        // WARNING might need to cast object as a player or enemy
+        _owner = owner;
+    }
+
     public void Hit(object target)
     {
         Random rnd = new();
         int damage = -rnd.Next(_minDamage, _maxDamage);
+        if (_owner is Enemy ownerEnemy)
+        {
+            damage -= ownerEnemy.GetLevel();
+        }
+        else if (_owner is Player ownerPlayer)
+        {
+            damage -= ownerPlayer.GetStat(_statUsed)/5;
+        }
+        
         switch (target)
         {
-            case Player player:
-                player.SetHealth(damage);
+            case Player targetPlayer:
+                targetPlayer.SetHealth(damage);
                 break;
-            case Enemy enemy:
-                enemy.SetHealth(damage);
+            case Enemy targetEnemy:
+                targetEnemy.SetHealth(damage);
                 break;
         }
     }

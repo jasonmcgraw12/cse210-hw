@@ -1,15 +1,23 @@
 class Weapon : Gear
 {
     List<Attack> _attacks = new();
-    public Weapon(string name, int minImpactAmount, int maxImpactAmount) : base(name, 1, minImpactAmount, maxImpactAmount){}
+    // private object _owner;
+    public Weapon(string name, int minImpactAmount, int maxImpactAmount) : base(name, 1, minImpactAmount, maxImpactAmount)
+    {
+        // _owner = owner;
+    }
 
     public void AddAttack(Attack attack)
     {
         _attacks.Add(attack);
     }
 
-    public List<Attack> GetAttacks()
+    public List<Attack> GetAttacks(Object owner)
     {
+        foreach (Attack attack in _attacks)
+        {
+            attack.SetOwner(owner);
+        }
         return _attacks;
     }
 }

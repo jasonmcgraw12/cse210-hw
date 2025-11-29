@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 class Enemy
 {
     private string _name;
+    private int _level;
     private int _health;
     private int _currentHealth;
     private int _stamina;
@@ -11,20 +12,35 @@ class Enemy
     private List<Attack> _attacks = new();
     private Dictionary<Item, double> _lootTable = new();
 
-    public Enemy(string name, int health, int currenthealth, List<Attack> attacks, Dictionary<Item, double> lootTable)
+    public Enemy(string name, int level, int health, int currenthealth, List<Attack> attacks, Dictionary<Item, double> lootTable)
     {
         _name = name;
+        _level = level;
         _health = health;
         _currentHealth = currenthealth;
         _stamina = health;
         _currentStamina = currenthealth; // Warning stamina uses health when constructed, this might not be desired behavior
         _attacks = attacks;
         _lootTable = lootTable;
+        _lootTable[new Xp(level*50)] = 1.0;
+        foreach (Attack attack in _attacks)
+        {
+            attack.SetOwner(this); // WARNING this attack doesn't benefit from stat bonus
+        }
     }
 
     public void SetHealth(int damage)
     {
         _currentHealth += damage;
+        if (_currentHealth >= _health)
+        {
+            _currentHealth = _health;
+        }
+    }
+
+    public int GetLevel()
+    {
+        return _level;
     }
 
     public void Display()
@@ -80,5 +96,10 @@ class Enemy
                 }
             room.SetDyingEnemy(this);
         }
+    }
+
+    public override string ToString()
+    {
+        return _name;
     }
 }

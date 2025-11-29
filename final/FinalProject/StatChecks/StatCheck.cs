@@ -26,7 +26,7 @@ class StatCheck
             int stat = player.GetStat(_challengedStat);
             if (stat > _challengeAmount)
             {
-                Printer.PauseInput("You succeeded! "+ _successDescripton);
+                Printer.PauseInput(_successDescripton);
                 foreach (Item reward in _rewards)
                 {
                     player.AddToInventory(reward);
@@ -35,7 +35,7 @@ class StatCheck
             }
             else
             {
-                Printer.PauseInput("You failed. "+ _failDescription);
+                Printer.PauseInput(_failDescription);
             }
         }
     }
