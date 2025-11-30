@@ -45,6 +45,11 @@ class Player
         }
     }
 
+    public void SetMoney(int changeAmount)
+    {
+        _coins += changeAmount;
+    }
+
     public int GetStat(string statName)
     {
         if (statName == "health")
@@ -81,6 +86,11 @@ class Player
     public int GetLevel()
     {
         return _level;
+    }
+
+    public int GetMoney()
+    {
+        return _coins;
     }
 
     public override string ToString()

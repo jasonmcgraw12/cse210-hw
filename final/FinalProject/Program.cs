@@ -14,15 +14,22 @@ class Program
         Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
         List<Func<Room>> beginningRooms = new()
         {
-            () => new Cave(player.GetLevel())
+            // () => new Cave(player.GetLevel())
+            () => new CagedShop(player.GetLevel())
         };
+        // List<Func<Room>> shopRooms = new()
+        // {
+        //     () => new 
+        // }
         List<Func<Room>> rooms = new()
         {
-            // Vault,GoblinNest
             () => new Vault(player.GetLevel())
             , () => new GoblinNest(player.GetLevel())
-            // WARNING add rooms I create here, maybe make rooms change based on player level
-        };// reset the variables in the room or create a lambda to make a new room
+        };
+        // List<Func<Room>> bossRooms = new()
+        // {
+        //     () => new Room()
+        // }
 
 
         // Item apple = new Food("apple",1,1,2);

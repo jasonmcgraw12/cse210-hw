@@ -36,7 +36,7 @@ class Room
     {
         return _player;
     }
-    public void Display(Player player)
+    public virtual void Display(Player player)
     {
         Printer.PauseInput(_description);
         while (_enemies.Count != 0)

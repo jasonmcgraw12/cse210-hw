@@ -36,6 +36,12 @@ abstract class Item
         return _numberOfItem;
     }
 
+    public int GetCost()
+    {
+        int cost = (_effectRange[0]+_effectRange[1])/2;
+        return cost;
+    }
+
     public override string ToString()
     {
         return _name;
