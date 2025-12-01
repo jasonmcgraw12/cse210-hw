@@ -14,13 +14,12 @@ class Program
         Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
         List<Func<Room>> beginningRooms = new()
         {
-            // () => new Cave(player.GetLevel())
+            () => new Cave(player.GetLevel())
+        };
+        List<Func<Room>> shopRooms = new()
+        {
             () => new CagedShop(player.GetLevel())
         };
-        // List<Func<Room>> shopRooms = new()
-        // {
-        //     () => new 
-        // }
         List<Func<Room>> rooms = new()
         {
             () => new Vault(player.GetLevel())
@@ -66,7 +65,7 @@ class Program
             }
             else if (input == "4")
             {
-                Console.WriteLine($"See you later {player.ToString()}");
+                Console.WriteLine($"See you later {player}!");
             }
         }
 
@@ -84,10 +83,12 @@ class Program
             // {
             //     // put boss floors here
             // }
-            // else if (roomNumber % 5 == 0)
-            // {
-            //     // put shop and interactable floors here
-            // }
+            else if (roomNumber % 5 == 0)
+            {
+                int i = rnd.Next(shopRooms.Count());
+                Room createdRoom = CreateRoom(shopRooms, i);
+                return createdRoom;
+            }
             else
             {
                 int i = rnd.Next(rooms.Count());
