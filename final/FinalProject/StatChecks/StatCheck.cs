@@ -19,23 +19,36 @@ class StatCheck
 
     public void Start(Player player)
     {
-        string input;
-        input = Printer.ChallengeWriteRead(_beginningDescription);
-        if (input.ToLower() == "yes")
+        Random rnd = new();
+        string input = "";
+        while (input.ToLower() != "yes" && input.ToLower() != "no")
         {
-            int stat = player.GetStat(_challengedStat);
-            if (stat > _challengeAmount)
+            input = Printer.ChallengeWriteRead(_beginningDescription);
+            // if (input.ToLower() != "yes" && input.ToLower() != "no")
+            // {
+            //     Printer.PauseInput("(Please enter 'yes' or 'no' in the next section to decide what to do)");
+            // }
+            if (input.ToLower() == "yes")
             {
-                Printer.PauseInput(_successDescripton);
-                foreach (Item reward in _rewards)
+                int modifier = player.GetStat(_challengedStat)/2;
+                int numberRolled = rnd.Next(modifier); // inputs 0 to max stat (a base of 4 or 5 on start)
+                if (numberRolled >= _challengeAmount)
                 {
-                    player.AddToInventory(reward);
+                    Printer.PauseInput(_successDescripton);
+                    foreach (Item reward in _rewards)
+                    {
+                        player.AddToInventory(reward);
+                    }
+                    
                 }
-                
+                else
+                {
+                    Printer.PauseInput(_failDescription);
+                }
             }
-            else
+            else if (input.ToLower() == "no")
             {
-                Printer.PauseInput(_failDescription);
+                Printer.PauseInput("You decide it's best to move on.");
             }
         }
     }

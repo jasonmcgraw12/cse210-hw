@@ -23,12 +23,12 @@ class Program
         List<Func<Room>> rooms = new()
         {
             () => new Vault(player.GetLevel())
-            , () => new GoblinNest(player.GetLevel())
+            // , () => new GoblinNest(player.GetLevel())
         };
-        // List<Func<Room>> bossRooms = new()
-        // {
-        //     () => new Room()
-        // }
+        List<Func<Room>> bossRooms = new()
+        {
+            () => new PoisonedLair(player.GetLevel())
+        };
 
 
         // Item apple = new Food("apple",1,1,2);
@@ -79,10 +79,12 @@ class Program
                 Room createdRoom = CreateRoom(beginningRooms, i);
                 return createdRoom;
             }
-            // else if (roomNumber % 10 == 0)
-            // {
-            //     // put boss floors here
-            // }
+            else if (roomNumber % 10 == 0)
+            {
+                int i = rnd.Next(bossRooms.Count());
+                Room createdRoom = CreateRoom(bossRooms, i);
+                return createdRoom;
+            }
             else if (roomNumber % 5 == 0)
             {
                 int i = rnd.Next(shopRooms.Count());

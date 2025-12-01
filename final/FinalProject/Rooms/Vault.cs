@@ -9,7 +9,7 @@ class Vault : Room
             , "You take an hour trying to figure out the lock, but you decide it's time to move on."
             , "You pick the lock and open the door to the spoils."
             , "dexterity"
-            , 9+level
+            , 2+level/2
             , new List<Item>(){new Coin(5*level)}
         )
     ){}

@@ -35,7 +35,7 @@ public class Printer
 
     public static string ChallengeWriteRead(string message, bool shouldClear = true)
     {
-        return WriteRead(message + " (Enter 'yes' if you would like to perform the action)");
+        return WriteRead(message + "\n(please enter 'yes' or 'no')");
     }
 
 
