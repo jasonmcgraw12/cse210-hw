@@ -155,7 +155,7 @@ class Player
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
-            Console.WriteLine($"{i}. {item} [{item.GetNumber()}]");
+            Console.WriteLine($"{i}. {item} [{_inventory[item]}]");
             itemDict[i.ToString()] = item;
             i++;
         }

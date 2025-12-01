@@ -23,10 +23,12 @@ class ShopRoom : Room
     public void OpenShop(Player player)
     {
         string input = "";
-        int i = 0;
+        // int i = 0;
         Dictionary<string, Item> shopDict = new();
         while (input.ToLower() != "end")
         {
+            int i = 0;
+            Console.WriteLine($"Coins: {player.GetMoney()}");
             Console.WriteLine("Is there anything you'd like to buy? (Enter 'end' to finish shopping.)");
             foreach (Item item in _shopItems)
             {
@@ -46,6 +48,7 @@ class ShopRoom : Room
                         {
                             player.SetMoney(-item.GetCost());
                             player.AddToInventory(item);
+                            Printer.PauseInput($"You bought the {item} for {item.GetCost()} coins.");
                         }
                         else
                         {

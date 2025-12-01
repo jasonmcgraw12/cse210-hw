@@ -2,7 +2,7 @@ class CagedShop : ShopRoom
 {
     public CagedShop(int level) : base(
         "Vault Room"
-        , "There's a caged man locked behind bars. \" You there! If you can get me outa here I'll show you my wares.\""
+        , "There's a caged man locked behind bars. \"You there! If you can get me outa here I'll show you my wares.\""
         , new List<Enemy>()
         , new StatCheck(
             "Would you like to pick the lock?"
