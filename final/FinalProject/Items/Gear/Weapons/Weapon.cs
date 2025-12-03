@@ -20,4 +20,10 @@ class Weapon : Gear
         }
         return _attacks;
     }
+
+    public override string GetInfo()
+    {
+        Attack mainAttack = _attacks[0];
+        return $"[{mainAttack.GetStat()} {mainAttack.GetDamageRange()[0]}-{mainAttack.GetDamageRange()[1]}]";
+    }
 }

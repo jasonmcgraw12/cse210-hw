@@ -42,6 +42,11 @@ abstract class Item
         return cost;
     }
 
+    public virtual string GetInfo()
+    {
+        return $"[{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
+    }
+
     public override string ToString()
     {
         return _name;

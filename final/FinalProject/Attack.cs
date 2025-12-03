@@ -20,6 +20,11 @@ class Attack
         _maxDamage = damageRange[1];
     }
 
+    public int[] GetDamageRange()
+    {
+        return [_minDamage,_maxDamage];
+    }
+
     public int GetStaminaUsed()
     {
         return _staminaUsed;
@@ -30,6 +35,11 @@ class Attack
         Random rnd = new();
         int i = rnd.Next(_attackSynonyms.Count());
         return _attackSynonyms[i];
+    }
+
+    public string GetStat()
+    {
+        return _statUsed;
     }
 
     public void SetOwner(Object owner)

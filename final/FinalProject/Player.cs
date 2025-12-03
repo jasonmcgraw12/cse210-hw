@@ -17,6 +17,7 @@ class Player
     private int _charisma;
     private Weapon _weapon = new Dagger();
     private Armor _armor;
+    private List<Skill> skills;
     private Dictionary<Item, int> _inventory = new();
 
     public Player(
@@ -45,9 +46,24 @@ class Player
         }
     }
 
+    public void SetTotalHealth(int changeAmount)
+    {
+        _health += changeAmount;
+    }
+
+    public void SetStrength(int changeAmount)
+    {
+        _strength = changeAmount;
+    }
+
     public void SetMoney(int changeAmount)
     {
         _coins += changeAmount;
+    }
+
+    public void SetSkillPoints(int changeAmount)
+    {
+        _skillPoints += changeAmount;
     }
 
     public int GetStat(string statName)
@@ -160,7 +176,7 @@ class Player
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
-            Console.WriteLine($"{i}. {item} [{_inventory[item]}] [{item.GetEffectRange()[0]}-{item.GetEffectRange()[1]}]");
+            Console.WriteLine($"{i}. {item} {item.GetInfo()}");
             // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
             itemDict[i.ToString()] = item;
             i++;

@@ -1,7 +1,7 @@
 class LeatherArmor : Armor
 {
     public LeatherArmor() : base(
-        "Leather Armor"
+        "leather armor"
         , 0
         , 3
     ){}
