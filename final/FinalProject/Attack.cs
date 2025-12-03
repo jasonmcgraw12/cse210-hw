@@ -54,6 +54,11 @@ class Attack
         switch (target)
         {
             case Player targetPlayer:
+                damage -= targetPlayer.GetBlock();
+                if (damage < 0)
+                {
+                    damage = 0;
+                }
                 targetPlayer.SetHealth(-damage);
                 break;
             case Enemy targetEnemy:

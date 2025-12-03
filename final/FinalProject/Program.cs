@@ -23,7 +23,7 @@ class Program
         List<Func<Room>> rooms = new()
         {
             () => new Vault(player.GetLevel())
-            // , () => new GoblinNest(player.GetLevel())
+            , () => new GoblinNest(player.GetLevel())
         };
         List<Func<Room>> bossRooms = new()
         {

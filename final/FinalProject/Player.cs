@@ -38,7 +38,7 @@ class Player
 
     public void SetHealth(int changeAmount)
     {
-        _currentHealth += changeAmount; // WARNING put armor calculations here
+        _currentHealth += changeAmount;
         if (_currentHealth > _health)
         {
             _currentHealth = _health;
@@ -91,6 +91,11 @@ class Player
     public int GetMoney()
     {
         return _coins;
+    }
+
+    public int GetBlock()
+    {
+        return _armor.GetEffectAmount();
     }
 
     public override string ToString()
@@ -155,7 +160,8 @@ class Player
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
-            Console.WriteLine($"{i}. {item} [{_inventory[item]}]");
+            Console.WriteLine($"{i}. {item} [{_inventory[item]}] [{item.GetEffectRange()[0]}-{item.GetEffectRange()[1]}]");
+            // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
             itemDict[i.ToString()] = item;
             i++;
         }
@@ -242,7 +248,7 @@ class Player
     {
         if (item is Weapon weapon)
         {
-            if (_weapon.ToString() != "fists")
+            if (_weapon.ToString() != "fists")// WARNING should get rid of fists as an item
             {
                 AddToInventory(_weapon);
             }
@@ -250,7 +256,10 @@ class Player
         }
         if (item is Armor armor)
         {
-            // WARNING when armor is included in the game make sure you get the previous armor your player is wearing.
+            if (_armor != null)
+            {
+                AddToInventory(_armor);
+            }
             _armor = armor;
         }
     }
