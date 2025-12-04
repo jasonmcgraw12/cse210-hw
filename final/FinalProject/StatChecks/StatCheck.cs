@@ -1,5 +1,6 @@
 class StatCheck
 {
+    private bool _didSucceed = false;
     private string _beginningDescription;
     private string _failDescription;
     private string _successDescripton;
@@ -17,7 +18,12 @@ class StatCheck
         _rewards = rewards;
     }
 
-    public void Start(Player player)
+    public bool GetSuccess()
+    {
+        return _didSucceed;
+    }
+
+    public virtual void Start(Player player)
     {
         Random rnd = new();
         string input = "";
@@ -34,11 +40,14 @@ class StatCheck
                 int numberRolled = rnd.Next(modifier); // inputs 0 to max stat (a base of 4 or 5 on start)
                 if (numberRolled >= _challengeAmount)
                 {
+                    _didSucceed = true;
                     Printer.PauseInput(_successDescripton);
                     foreach (Item reward in _rewards)
                     {
                         player.AddToInventory(reward);
+                        Console.WriteLine($"You got {reward}");
                     }
+                    Printer.PauseInput("");
                     
                 }
                 else

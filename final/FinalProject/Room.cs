@@ -28,6 +28,11 @@ class Room
         _roomEffect = roomEffect;
     }
 
+    public void SetStatCheck(StatCheck check)
+    {
+        _challenge = check;
+    }
+
     public void AddEnemy(Enemy enemy)
     {
         _enemies.Add(enemy);
@@ -112,10 +117,10 @@ class Room
                         player.MakeAttack(attack, target);
                         target.CheckDeath(this);
                     }
-                    else
-                    {
-                        Printer.PauseInput("That input doesn't work. Please enter the number of the corrisponding creature when attacking (for example enter '1' durring the next question).");
-                    }
+                    // else
+                    // {
+                    //     Printer.PauseInput("That input doesn't work. Please enter the number of the corrisponding creature when attacking (for example enter '1' durring the next question).");
+                    // }
                     
                     Console.Clear();
                 }

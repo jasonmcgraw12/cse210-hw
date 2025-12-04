@@ -75,9 +75,12 @@ class Program
             Random rnd = new();
             if (roomNumber == 0)
             {
-                int i = rnd.Next(beginningRooms.Count());
-                Room createdRoom = CreateRoom(beginningRooms, i);
+                int i = rnd.Next(shopRooms.Count());
+                Room createdRoom = CreateRoom(shopRooms, i);
                 return createdRoom;
+                // int i = rnd.Next(beginningRooms.Count());
+                // Room createdRoom = CreateRoom(beginningRooms, i);
+                // return createdRoom;
             }
             else if (roomNumber % 10 == 0)
             {

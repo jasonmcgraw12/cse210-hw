@@ -16,7 +16,7 @@ class Player
     private int _intelligence;
     private int _charisma;
     private Weapon _weapon = new Dagger();
-    private Armor _armor;
+    private Armor _armor = new("tattered leather", 0, 1);
     private List<Skill> _skills = new();
     private Dictionary<Item, int> _inventory = new();
 
@@ -81,6 +81,15 @@ class Player
         _skillPoints += changeAmount;
     }
 
+    public Dictionary<Item, int> GetInventory()
+    {
+        return _inventory;
+    }
+
+    public List<Item> GetItems()
+    {
+        return _inventory.Keys.ToList();
+    }
     public int GetStat(string statName)
     {
         if (statName == "health")
@@ -191,7 +200,7 @@ class Player
         bool usedItem = false;
         int i = 1;
         Dictionary<string, Item> itemDict = new();
-        Console.WriteLine($"Coins: {_coins} \nXP: {_xp}/{_xpGoal}");
+        Console.WriteLine($"Coins: {_coins} \nXP: {_xp}/{_xpGoal}\nWeapon: {_weapon} {_weapon.GetInfo()}\nArmor: {_armor} {_armor.GetInfo()}");
         Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
         foreach (Item item in _inventory.Keys)
         {
@@ -210,12 +219,8 @@ class Player
                 {
                     item.Use(this);
                     usedItem = true;
-                    _inventory[item]--;
-                    // item.SetNumber(-1);
-                    if (_inventory[item] <= 0)
-                    {
-                        _inventory.Remove(item);
-                    }
+                    
+                    RemoveFromInventory(item);
                     break;
                 }
                 // else if (itemDict.ContainsKey(input))
@@ -232,41 +237,56 @@ class Player
         Printer.PauseInput("");
     }
 
+    public void RemoveFromInventory(Item item)
+    {
+        _inventory[item]--;
+        // item.SetNumber(-1);
+        if (_inventory[item] <= 0)
+        {
+            _inventory.Remove(item);
+        }
+    }
+
     public Attack DisplayAttacks()
     {
-        string input;
+        string input = "";
         Attack attackChoice = null;
-        Dictionary<string, Attack> attackDict = new();
-        Console.WriteLine("What attack would you like to perform?");
-        int i = 1;
-        foreach (Attack attack in _weapon.GetAttacks(this))
+        while (attackChoice == null)
         {
-            attackDict[i.ToString()] = attack;
-            Console.WriteLine($"{i}. {attack}");
-            i++;
-        }
-        input = Console.ReadLine();
-        Console.Clear();
-        
-
-        if (attackDict.ContainsKey(input))
-        {
-            attackChoice = attackDict[input];
-        }
-        else
-        {
+            
+            
+            Dictionary<string, Attack> attackDict = new();
+            Console.WriteLine("What attack would you like to perform?");
+            int i = 1;
             foreach (Attack attack in _weapon.GetAttacks(this))
             {
-                if (input == attack.ToString())
+                attackDict[i.ToString()] = attack;
+                Console.WriteLine($"{i}. {attack}");
+                i++;
+            }
+            input = Console.ReadLine();
+            Console.Clear();
+            
+
+            if (attackDict.ContainsKey(input))
+            {
+                attackChoice = attackDict[input];
+            }
+            else
+            {
+                foreach (Attack attack in _weapon.GetAttacks(this))
                 {
-                    attackChoice = attack;
+                    if (input == attack.ToString())
+                    {
+                        attackChoice = attack;
+                    }
                 }
             }
-        }
-        if (attackChoice == null)
-        {
-            Printer.PrintError("The attack was not found, returning punch");
-            attackChoice = new Punch();
+            // if (attackChoice == null)
+            // {
+            //     Printer.PrintError("The attack was not found, returning punch");
+            //     attackChoice = new Punch();
+            // }
         }
         Console.WriteLine($"You ready your {attackChoice} attack.");
         return attackChoice;
@@ -283,18 +303,14 @@ class Player
     {
         if (item is Weapon weapon)
         {
-            if (_weapon.ToString() != "fists")// WARNING should get rid of fists as an item
-            {
-                AddToInventory(_weapon);
-            }
             _weapon = weapon;
         }
         if (item is Armor armor)
         {
-            if (_armor != null)
-            {
-                AddToInventory(_armor);
-            }
+            // if (_armor != null)
+            // {
+            //     AddToInventory(_armor);
+            // }
             _armor = armor;
         }
     }

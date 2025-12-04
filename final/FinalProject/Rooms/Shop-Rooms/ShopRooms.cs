@@ -17,7 +17,10 @@ class ShopRoom : Room
     public override void Display(Player player)
     {
         base.Display(player);
-        OpenShop(player);
+        if (_shopItems.Count() > 0)
+        {
+            OpenShop(player);
+        }
     }
 
     public void OpenShop(Player player)
@@ -41,8 +44,14 @@ class ShopRoom : Room
                 Console.WriteLine($"{i}. {item} | {itemCost} coins");
                 shopDict[i.ToString()] = item;
             }
+            Console.WriteLine($"{i + 1}. sell items");
             input = Console.ReadLine();
 
+            if (input == (i + 1).ToString())
+            {
+                Console.Clear();
+                SellItems(player);
+            }
             if (input != "")
             {
                 foreach (Item item in _shopItems)
@@ -72,5 +81,49 @@ class ShopRoom : Room
 
 
         // CHANGE make a way to sell items here too
+    }
+
+    private void SellItems(Player player)
+    {
+        string input = "";
+        while (input != "end")
+        {
+            Dictionary<string, Item> sellDict = new();
+            int i = 0;
+            Console.WriteLine($"Coins: {player.GetMoney()}");
+            Console.WriteLine("What item would you like to sell? (Enter 'end' to go back to shop.)");
+            foreach (Item item in player.GetItems())
+            {
+                i++;
+                int sellValue = (item.GetCost() + player.GetStat("charisma") / 5) / 2;
+                if (sellValue <= 0)
+                {
+                    sellValue = 1;
+                }
+                Console.WriteLine($"{i}. {item} | {sellValue} coins");
+                sellDict[i.ToString()] = item;
+            }
+            input = Console.ReadLine();
+            if (sellDict.ContainsKey(input))
+            {
+                Item item = sellDict[input];
+                int sellValue = (item.GetCost() + player.GetStat("charisma") / 5) / 2;
+                if (sellValue <= 0)
+                {
+                    sellValue = 1;
+                }
+                else if (sellValue > (item.GetCost() - player.GetStat("charisma") / 5))
+                {
+                    sellValue = item.GetCost() - player.GetStat("charisma") / 5;
+                }
+                player.SetMoney(sellValue);
+                // if (player.GetInventory().ContainsKey(item))
+                // {
+                    
+                // }
+                player.RemoveFromInventory(item);
+            }
+            Console.Clear();
+        }
     }
 }
