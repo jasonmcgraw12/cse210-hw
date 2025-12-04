@@ -33,7 +33,12 @@ class ShopRoom : Room
             foreach (Item item in _shopItems)
             {
                 i++;
-                Console.WriteLine($"{i}. {item} | {item.GetCost()} coins");
+                int itemCost = item.GetCost() - player.GetStat("charisma") / 5;
+                if (itemCost <= 0)
+                {
+                    itemCost = 1;
+                }
+                Console.WriteLine($"{i}. {item} | {itemCost} coins");
                 shopDict[i.ToString()] = item;
             }
             input = Console.ReadLine();
@@ -44,15 +49,20 @@ class ShopRoom : Room
                 {
                     if (item.ToString() == input || (shopDict.ContainsKey(input) && shopDict[input].ToString() == item.ToString()))
                     {
-                        if (player.GetMoney() >= item.GetCost())
+                        int itemCost = item.GetCost() - player.GetStat("charisma") / 5;
+                        if (itemCost <= 0)
                         {
-                            player.SetMoney(-item.GetCost());
+                            itemCost = 1;
+                        }
+                        if (player.GetMoney() >= itemCost)
+                        {
+                            player.SetMoney(-itemCost);
                             player.AddToInventory(item);
-                            Printer.PauseInput($"You bought the {item} for {item.GetCost()} coins.");
+                            Printer.PauseInput($"You bought the {item} for {itemCost} coins.");
                         }
                         else
                         {
-                            Printer.PauseInput($"You have {player.GetMoney()} coins, but the {item} costs {item.GetCost()} coins.");
+                            Printer.PauseInput($"You have {player.GetMoney()} coins, but the {item} costs {itemCost} coins.");
                         }
                         break;
                     }

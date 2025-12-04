@@ -7,4 +7,9 @@ class PassiveSkill : Skill
     {
         _skillEffect = effect;
     }
+
+    public void LevelUpEffect(Player player)
+    {
+        _skillEffect(player);
+    }
 }

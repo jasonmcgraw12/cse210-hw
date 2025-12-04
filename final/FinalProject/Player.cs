@@ -17,7 +17,7 @@ class Player
     private int _charisma;
     private Weapon _weapon = new Dagger();
     private Armor _armor;
-    private List<Skill> skills;
+    private List<Skill> _skills = new();
     private Dictionary<Item, int> _inventory = new();
 
     public Player(
@@ -53,7 +53,22 @@ class Player
 
     public void SetStrength(int changeAmount)
     {
-        _strength = changeAmount;
+        _strength += changeAmount;
+    }
+
+    public void SetDexterity(int changeAmount)
+    {
+        _dexterity += changeAmount;
+    }
+    
+    public void SetIntelligence(int changeAmount)
+    {
+        _intelligence += changeAmount;
+    }
+    
+    public void SetCharisma(int changeAmount)
+    {
+        _charisma += changeAmount;
     }
 
     public void SetMoney(int changeAmount)
@@ -111,6 +126,10 @@ class Player
 
     public int GetBlock()
     {
+        if (_armor == null)
+        {
+            return 0;
+        }
         return _armor.GetEffectAmount();
     }
 
@@ -296,8 +315,63 @@ class Player
             _xpGoal = 100*_level;
             // _xp = 0;
             _skillPoints += 2;
+
+            ChooseSkills();
+
             DisplayStats();
         }
+    }
+
+    private void ChooseSkills()
+    {
+        String input = "";
+        Random rnd = new();
+        List<Skill> skills = new()
+        {
+            new CharismaUp()
+            , new CoinShower()
+            , new DexterityUp()
+            , new HealthUp()
+            , new IntelligenceUp()
+            , new StatUp()
+            , new StrengthUp()
+        };
+        List<Skill> randomSkills = skills.OrderBy(x => rnd.Next()).Take(3).ToList();
+
+        Dictionary<string, Skill> skillDict = new();
+        while (!skillDict.ContainsKey(input))
+        {
+            Console.WriteLine("Which skill would you like to develop? (Enter '1', '2', or '3')");
+            int i = 0;
+            foreach (Skill skill in randomSkills)
+            {
+                i++;
+                Console.Write($"{i}. ");
+                skill.Display();
+                skillDict[i.ToString()] = skill;
+            }
+
+            input = Console.ReadLine();
+            if (skillDict.ContainsKey(input))
+            {
+                Skill skill = skillDict[input];
+                _skills.Add(skill);
+                if (skill is PassiveSkill passiveSkill)
+                {
+                    passiveSkill.LevelUpEffect(this);
+                }
+            }
+        }
+
+    }
+
+    public void DisplaySkills()
+    {
+        foreach (Skill skill in _skills)
+        {
+            skill.Display();
+        }
+        Printer.PauseInput("");
     }
 
     public void DisplayStats()
@@ -356,6 +430,5 @@ class Player
         {
             Printer.PauseInput(displayMessage);
         }
-        
     }
 }

@@ -9,4 +9,9 @@ class Skill
         _title = title;
         _description = description;
     }
+
+    public void Display()
+    {
+        Console.WriteLine($"{_title}: {_description}");
+    }
 }
