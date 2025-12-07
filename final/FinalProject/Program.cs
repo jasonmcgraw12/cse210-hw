@@ -7,11 +7,12 @@ class Program
     static void Main(string[] args)
     {
         string input = "";
+        // WARNING Use file name to know which file to autosave to.
         string fileName;
         int roomNumber = 0;
-        
-        Console.WriteLine("Welcome to a text dungeon adventure!");
+        // ClassFactory.MakeClass("Goblin");
         Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
+        // LoadFile();
         List<Func<Room>> beginningRooms = new()
         {
             () => new Cave(player.GetLevel())
@@ -29,6 +30,9 @@ class Program
         {
             () => new PoisonedLair(player.GetLevel())
         };
+        
+        Console.WriteLine("Welcome to a text dungeon adventure!");
+        
 
 
         // Item apple = new Food("apple",1,1,2);
@@ -75,8 +79,8 @@ class Program
             Random rnd = new();
             if (roomNumber == 0)
             {
-                int i = rnd.Next(shopRooms.Count());
-                Room createdRoom = CreateRoom(shopRooms, i);
+                int i = rnd.Next(beginningRooms.Count());
+                Room createdRoom = CreateRoom(beginningRooms, i);
                 return createdRoom;
                 // int i = rnd.Next(beginningRooms.Count());
                 // Room createdRoom = CreateRoom(beginningRooms, i);
@@ -154,7 +158,7 @@ class Program
 
 
 
-        void LoadGoalFile()
+        void LoadFile()
         {
             Console.Clear();
             input = "";
@@ -164,12 +168,12 @@ class Program
                 Console.Clear();
                 Console.WriteLine("What goal file do you want to load?");
                 string path = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
-                string[] files = Directory.GetFiles(path+"\\GoalFiles");
+                string[] files = Directory.GetFiles(path+"\\SaveFiles");
                 numToFileName = new();
                 int index = 1;
                 foreach(string file in files)
                 {
-                    string fileName = file.Replace(path+"\\GoalFiles\\","");
+                    string fileName = file.Replace(path+"\\SaveFiles\\","");
                     numToFileName[index.ToString()] = fileName;
                     Console.WriteLine($"{index}. {fileName}");
                     index++;
@@ -183,9 +187,18 @@ class Program
                 }
                 else if (input == index.ToString())
                 {
-                    Console.WriteLine("What would you like to name your file?");
-                    input = Console.ReadLine();
-                    fileName = input;
+                    input = "";
+                    fileName = "";
+                    while(input == "")
+                    {
+                        Console.WriteLine("What would you like to name your file?");
+                        input = Console.ReadLine();
+                        fileName = input;
+                        if (input == "")
+                        {
+                            Printer.PauseInput("Please enter a name for your file.");
+                        }
+                    }
                     SaveGoals(fileName);// put info to be saved here
                 }
             }       
@@ -238,15 +251,29 @@ class Program
         //     SaveGoals(fileName, totalPoints, level, goals);
         // }
 
-        static void SaveGoals(string fileName)//, int totalPoints, int level, List<SimpleGoal> goals)
+        void SaveGoals(string fileName)//, int totalPoints, int level, List<SimpleGoal> goals)
         {
-            string path = Environment.CurrentDirectory+"\\GoalFiles\\";
+            string path = Environment.CurrentDirectory+"\\SaveFiles\\";
             if (Environment.CurrentDirectory == AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.Length - 1))
             {
-                path = "..\\..\\..\\GoalFiles\\";
+                path = "..\\..\\..\\SaveFiles\\";
             }
             using (StreamWriter outputFile = new StreamWriter(path + fileName, append: false))
             {
+                // level, 
+                outputFile.WriteLine($"{player.GetLevel()}");
+
+                string className = ClassFactory.GetClassName(player.GetWeapon().GetType());
+                outputFile.WriteLine($"{className}");
+
+                className = ClassFactory.GetClassName(player.GetArmor().GetType());
+                outputFile.WriteLine($"{className}");
+
+                foreach (Item item in player.GetItems())
+                {
+                    string itemName = ClassFactory.GetClassName(item.GetType());
+                    outputFile.Write($"{itemName}:{item.GetNumber}||");
+                }
                 // outputFile.WriteLine(totalPoints+$"||{level}");
                 // foreach (SimpleGoal goal in goals)
                 // {

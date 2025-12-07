@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using Microsoft.VisualBasic;
 
 class Player
@@ -16,7 +17,7 @@ class Player
     private int _intelligence;
     private int _charisma;
     private Weapon _weapon = new Dagger();
-    private Armor _armor = new("tattered leather", 0, 1);
+    private Armor _armor = new TatteredLeather();
     private List<Skill> _skills = new();
     private Dictionary<Item, int> _inventory = new();
 
@@ -79,6 +80,16 @@ class Player
     public void SetSkillPoints(int changeAmount)
     {
         _skillPoints += changeAmount;
+    }
+
+    public Weapon GetWeapon()
+    {
+        return _weapon;
+    }
+
+    public Armor GetArmor()
+    {
+        return _armor;
     }
 
     public Dictionary<Item, int> GetInventory()
