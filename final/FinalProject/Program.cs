@@ -6,12 +6,11 @@ class Program
 {
     static void Main(string[] args)
     {
+        Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
         string input = "";
-        // WARNING Use file name to know which file to autosave to.
-        string fileName;
+        string fileName = LoadFile();
         int roomNumber = 0;
         // ClassFactory.MakeClass("Goblin");
-        Player player = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
         // LoadFile();
         List<Func<Room>> beginningRooms = new()
         {
@@ -71,6 +70,7 @@ class Program
             {
                 Console.WriteLine($"See you later {player}!");
             }
+            Save(fileName);
         }
 
         Room GetRandomRoom(Player player)
@@ -158,10 +158,11 @@ class Program
 
 
 
-        void LoadFile()
+        string LoadFile()
         {
             Console.Clear();
             input = "";
+            string fileName = "";
             Dictionary<string, string> numToFileName= new();
             while (!numToFileName.ContainsKey(input))
             {
@@ -173,7 +174,7 @@ class Program
                 int index = 1;
                 foreach(string file in files)
                 {
-                    string fileName = file.Replace(path+"\\SaveFiles\\","");
+                    fileName = file.Replace(path+"\\SaveFiles\\","");
                     numToFileName[index.ToString()] = fileName;
                     Console.WriteLine($"{index}. {fileName}");
                     index++;
@@ -182,8 +183,8 @@ class Program
                 input = Console.ReadLine();
                 if (numToFileName.ContainsKey(input))
                 {
-                    fileName = numToFileName[input];// CHANGE make LoadGoals for this project
-                    // LoadGoals(path+"\\GoalFiles\\"+numToFileName[input]);
+                    fileName = numToFileName[input];// CHANGE make Load for this project
+                    // Load(path+"\\GoalFiles\\"+numToFileName[input]);
                 }
                 else if (input == index.ToString())
                 {
@@ -199,9 +200,11 @@ class Program
                             Printer.PauseInput("Please enter a name for your file.");
                         }
                     }
-                    SaveGoals(fileName);// put info to be saved here
+                    Save(fileName); // WARNING saving here might cause issues
                 }
-            }       
+            }
+
+            return fileName;
         }
 
         // void LoadGoals(string path)
@@ -248,10 +251,10 @@ class Program
         //             lines.Add(line);
         //         }
         //     }
-        //     SaveGoals(fileName, totalPoints, level, goals);
+        //     Save(fileName, totalPoints, level, goals);
         // }
 
-        void SaveGoals(string fileName)//, int totalPoints, int level, List<SimpleGoal> goals)
+        void Save(string fileName)//, int totalPoints, int level, List<SimpleGoal> goals)
         {
             string path = Environment.CurrentDirectory+"\\SaveFiles\\";
             if (Environment.CurrentDirectory == AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.Length - 1))
@@ -260,19 +263,41 @@ class Program
             }
             using (StreamWriter outputFile = new StreamWriter(path + fileName, append: false))
             {
-                // level, 
-                outputFile.WriteLine($"{player.GetLevel()}");
-
+                // Player's general info
+                // name, coins, xp, level, skillpoints, xpGoal, 
+                outputFile.WriteLine(
+                    $"{player.GetLevel()}||{player.GetMoney()}||{player.GetXP()}"
+                    + $"||{player.GetLevel()}||{player.GetSkillPoints()}||XPGoal if used"
+                    );
+                
+                // stats
+                // health, currentHealth, strength, dexterity, intelligence, charisma
+                outputFile.WriteLine(
+                    $"{player.GetStat("health")}||{player.GetStat("currentHealth")}||{player.GetStat("strength")}||"
+                    + $"{player.GetStat("dexterity")}||{player.GetStat("intelligence")}||{player.GetStat("charisma")}"
+                    );
+                
+                // Equipped weapon and armor
+                // Weapon
                 string className = ClassFactory.GetClassName(player.GetWeapon().GetType());
                 outputFile.WriteLine($"{className}");
-
+                // Armor
                 className = ClassFactory.GetClassName(player.GetArmor().GetType());
                 outputFile.WriteLine($"{className}");
 
+                // Player skills
+                foreach (Skill skill in player.GetSkills())
+                {
+                    string skillName = ClassFactory.GetClassName(skill.GetType());
+                    outputFile.Write($"{skillName}||");
+                }
+                outputFile.WriteLine();
+
+                // Item in inventory
                 foreach (Item item in player.GetItems())
                 {
                     string itemName = ClassFactory.GetClassName(item.GetType());
-                    outputFile.Write($"{itemName}:{item.GetNumber}||");
+                    outputFile.Write($"{itemName}:{item.GetNumber()}||");
                 }
                 // outputFile.WriteLine(totalPoints+$"||{level}");
                 // foreach (SimpleGoal goal in goals)

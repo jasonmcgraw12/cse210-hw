@@ -92,6 +92,11 @@ class Player
         return _armor;
     }
 
+    public List<Skill> GetSkills()
+    {
+        return _skills;
+    }
+
     public Dictionary<Item, int> GetInventory()
     {
         return _inventory;
@@ -119,7 +124,7 @@ class Player
         {
             return _dexterity;
         }
-        else if (statName == "inteligence")
+        else if (statName == "intelligence")
         {
             return _intelligence;
         }
@@ -139,9 +144,19 @@ class Player
         return _level;
     }
 
+    public int GetSkillPoints()
+    {
+        return _skillPoints;
+    }
+
     public int GetMoney()
     {
         return _coins;
+    }
+
+    public int GetXP()
+    {
+        return _xp;
     }
 
     public int GetBlock()
