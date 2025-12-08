@@ -10,7 +10,7 @@ class GoblinNest : Room
         , "You grab the dead goblins' food."
         , "dexterity"
         , 0
-        , new List<Item>(){new Food("steak", 1, 10, 20)}
+        , new List<Item>(){new Steak()}
         )
     )
     {

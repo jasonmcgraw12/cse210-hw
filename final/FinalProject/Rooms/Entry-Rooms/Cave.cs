@@ -10,7 +10,7 @@ class Cave : Room
             , "You grab the gear and continue into the cave."
             , "health"
             , 0
-            , new List<Item>(){new Coin(3), new Axe(), new Food("ration", 4, 1, 5), new LeatherArmor()}
+            , new List<Item>(){new Coin(3), new Axe(), new Ration(), new LeatherArmor()}
         )
     ){}
 }

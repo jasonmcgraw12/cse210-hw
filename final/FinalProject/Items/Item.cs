@@ -15,9 +15,16 @@ abstract class Item
         _numberOfItem = numberOfItem;
     }
 
-    public void SetNumber(int changeNumber)
+    public void SetNumber(int changeNumber, bool replace = false)
     {
-        _numberOfItem += changeNumber;
+        if (replace == true)
+        {
+            _numberOfItem = changeNumber;
+        }
+        else
+        {
+            _numberOfItem += changeNumber;
+        }
     }
 
     public List<int> GetEffectRange()
@@ -44,7 +51,7 @@ abstract class Item
 
     public virtual string GetInfo()
     {
-        return $"[{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
+        return $"[{GetNumber()}] [{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
     }
 
     public override string ToString()

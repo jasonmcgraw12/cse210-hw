@@ -10,32 +10,57 @@ class Player
     private int _level = 1;
     private int _skillPoints;
     private int _xpGoal = 100;
-    private int _health;
-    private int _currentHealth;
-    private int _strength;
-    private int _dexterity;
-    private int _intelligence;
-    private int _charisma;
+    private int _health = 40;
+    private int _currentHealth = 40;
+    private int _strength = 8;
+    private int _dexterity = 8;
+    private int _intelligence = 8;
+    private int _charisma = 8;
     private Weapon _weapon = new Dagger();
     private Armor _armor = new TatteredLeather();
     private List<Skill> _skills = new();
     private Dictionary<Item, int> _inventory = new();
 
-    public Player(
-    string name,
-    int health,
-    int strength, 
-    int dexterity, 
-    int intelligence, 
-    int charisma)
+    public Player(){}
+    // public Player(
+    // string name,
+    // int health,
+    // int strength, 
+    // int dexterity, 
+    // int intelligence, 
+    // int charisma)
+    // {
+    //     _name = name;
+    //     _health = health;
+    //     _currentHealth = health;
+    //     _strength = strength;
+    //     _dexterity = dexterity;
+    //     _intelligence = intelligence;
+    //     _charisma = charisma;
+    // }
+    public Player(string[] generalInfo, string[] statInfo, Weapon weapon, Armor armor, List<Skill> skills, Dictionary<Item, int> items)
     {
-        _name = name;
-        _health = health;
-        _currentHealth = health;
-        _strength = strength;
-        _dexterity = dexterity;
-        _intelligence = intelligence;
-        _charisma = charisma;
+        // name, coins, xp, level, skillpoints, xpGoal
+        _name = generalInfo[0];
+        _coins = int.Parse(generalInfo[1]);
+        _xp = int.Parse(generalInfo[2]);
+        _level = int.Parse(generalInfo[3]);
+        _skillPoints = int.Parse(generalInfo[4]);
+        _xpGoal = 100*_level;
+
+        // health, currentHealth, strength, dexterity, intelligence, charisma
+        _health = int.Parse(statInfo[0]);
+        _currentHealth = int.Parse(statInfo[1]);
+        _strength = int.Parse(statInfo[2]);
+        _dexterity = int.Parse(statInfo[3]);
+        _intelligence = int.Parse(statInfo[4]);
+        _charisma = int.Parse(statInfo[5]);
+
+        _weapon = weapon;
+        _armor = armor;
+        
+        _skills = skills;
+        _inventory = items;
     }
 
     public void SetHealth(int changeAmount)
@@ -329,14 +354,18 @@ class Player
     {
         if (item is Weapon weapon)
         {
+            if (_weapon != null)
+            {
+                AddToInventory(_weapon);
+            }
             _weapon = weapon;
         }
         if (item is Armor armor)
         {
-            // if (_armor != null)
-            // {
-            //     AddToInventory(_armor);
-            // }
+            if (_armor != null)
+            {
+                AddToInventory(_armor);
+            }
             _armor = armor;
         }
     }
