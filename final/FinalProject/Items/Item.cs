@@ -45,7 +45,19 @@ abstract class Item
 
     public int GetCost()
     {
-        int cost = (_effectRange[0]+_effectRange[1])/2;
+        int cost = _effectRange[0]+_effectRange[1];
+        if (this is Food food)
+        {
+            cost = (_effectRange[0]+_effectRange[1])/2;
+        }
+        else if (this is Weapon)
+        {
+            cost = (_effectRange[0]+_effectRange[1])*2;
+        }
+        else if (this is Armor)
+        {
+            cost = (_effectRange[0]+_effectRange[1])*3;
+        }
         return cost;
     }
 

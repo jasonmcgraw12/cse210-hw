@@ -45,7 +45,7 @@ class Enemy
 
     public void Display()
     {
-        Console.WriteLine($"Goblin: {_currentHealth}");
+        Console.WriteLine($"{_name}: {_currentHealth}");
     }
 
     public void AttackPlayer(Player player)

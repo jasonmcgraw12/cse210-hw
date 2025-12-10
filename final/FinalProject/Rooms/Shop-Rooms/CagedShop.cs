@@ -7,7 +7,7 @@ class CagedShop : ShopRoom
         , null 
     )
     {
-        FailStatCheck check = new(
+        NoSuccessStatCheck check = new(
             "Would you like to pick the lock?"
             , "You take an hour trying to figure out the lock, \"Just leave me and I'll wait for someone else to get me out of here.\""
             , $"You pick the lock. The shop keeper gives you {5*level} coins and shows you his wares."

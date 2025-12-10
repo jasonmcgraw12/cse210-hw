@@ -1,6 +1,7 @@
 class StatCheck
 {
     private bool _didSucceed = false;
+    private bool _didTry = false;
     private string _beginningDescription;
     private string _failDescription;
     private string _successDescripton;
@@ -23,6 +24,11 @@ class StatCheck
         return _didSucceed;
     }
 
+    public bool DidTry()
+    {
+        return _didTry;
+    }
+
     public virtual void Start(Player player)
     {
         Random rnd = new();
@@ -36,6 +42,7 @@ class StatCheck
             // }
             if (input.ToLower() == "yes")
             {
+                _didTry = true;
                 int modifier = player.GetStat(_challengedStat)/2;
                 int numberRolled = rnd.Next(modifier); // inputs 0 to max stat (a base of 4 or 5 on start)
                 if (numberRolled >= _challengeAmount)

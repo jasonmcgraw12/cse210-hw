@@ -5,5 +5,5 @@ class Chop : Attack
         , "strength"
         , new List<string>(){"choped", "slashed", "cleaved"}
         , 5
-        , new List<int>(){1, 6}){}
+        , new List<int>(){4, 5}){}
 }

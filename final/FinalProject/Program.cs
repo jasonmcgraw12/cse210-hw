@@ -24,6 +24,8 @@ class Program
         {
             () => new Vault(player.GetLevel())
             , () => new GoblinNest(player.GetLevel())
+            , () => new KingCollection(player.GetLevel())
+            , () => new MimicRest(player.GetLevel())
         };
         List<Func<Room>> bossRooms = new()
         {

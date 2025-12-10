@@ -12,7 +12,7 @@ class FailStatCheck : StatCheck
     public override void Start(Player player)
     {
         base.Start(player);
-        if (!GetSuccess())
+        if (!GetSuccess() && DidTry())
         {
             _failEffect(_room);
         }

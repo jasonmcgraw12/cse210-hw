@@ -5,5 +5,5 @@ class Stab : Attack
         , "dexterity"
         , new List<string>(){"stabed", "jabed", "pierced"}
         , 3
-        , new List<int>(){1, 4}){}
+        , new List<int>(){1, 8}){}
 }
