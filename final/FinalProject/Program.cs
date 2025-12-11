@@ -18,7 +18,8 @@ class Program
         };
         List<Func<Room>> shopRooms = new()
         {
-            () => new CagedShop(player.GetLevel())
+            // () => new CagedShop(player.GetLevel())
+             () => new adventureShop(player.GetLevel())
         };
         List<Func<Room>> rooms = new()
         {
@@ -43,7 +44,6 @@ class Program
         // Armor shield = new("shield",1,3);
         // player.AddToInventory(shield);
         
-
         while (input != "4")
         {
             player.LevelUp();
@@ -206,7 +206,7 @@ class Program
                     Save(fileName); // WARNING saving here might cause issues
                 }
             }
-
+            Console.Clear();
             return fileName;
         }
 

@@ -36,7 +36,7 @@ class ShopRoom : Room
             foreach (Item item in _shopItems)
             {
                 i++;
-                int itemCost = item.GetCost() - player.GetStat("charisma") / 5;
+                int itemCost = item.GetCost(true) - player.GetStat("charisma") / 5;
                 if (itemCost <= 0)
                 {
                     itemCost = 1;
@@ -58,7 +58,7 @@ class ShopRoom : Room
                 {
                     if (item.ToString() == input || (shopDict.ContainsKey(input) && shopDict[input].ToString() == item.ToString()))
                     {
-                        int itemCost = item.GetCost() - player.GetStat("charisma") / 5;
+                        int itemCost = item.GetCost(true) - player.GetStat("charisma") / 5;
                         if (itemCost <= 0)
                         {
                             itemCost = 1;

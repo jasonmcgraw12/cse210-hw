@@ -229,6 +229,7 @@ class Player
                 if (inventoryItem.ToString() == item.ToString())
                 {
                     _inventory[inventoryItem] += item.GetNumber();
+                    inventoryItem.SetNumber(item.GetNumber());
                     didAddToInventory = true;
                 }
             }
@@ -251,41 +252,50 @@ class Player
         bool usedItem = false;
         int i = 1;
         Dictionary<string, Item> itemDict = new();
-        Console.WriteLine($"Coins: {_coins} \nXP: {_xp}/{_xpGoal}\nWeapon: {_weapon} {_weapon.GetInfo()}\nArmor: {_armor} {_armor.GetInfo()}");
-        Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
-        foreach (Item item in _inventory.Keys)
+        Console.WriteLine($"HP: {_health}/{_currentHealth}\nCoins: {_coins} \nXP: {_xp}/{_xpGoal}\nWeapon: {_weapon} {_weapon.GetInfo(false)}\nArmor: {_armor} {_armor.GetInfo(false)}");
+        Console.WriteLine("------------------------");
+        if (_inventory.Count() > 0)
         {
-            Console.WriteLine($"{i}. {item} {item.GetInfo()}");
-            // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
-            itemDict[i.ToString()] = item;
-            i++;
-        }
-        string input = Console.ReadLine();
-
-        if (input != "")
-        {
+            
+            Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
             foreach (Item item in _inventory.Keys)
             {
-                if (item.ToString() == input || (itemDict.ContainsKey(input) && itemDict[input].ToString() == item.ToString()))
-                {
-                    item.Use(this);
-                    usedItem = true;
-                    
-                    RemoveFromInventory(item);
-                    break;
-                }
-                // else if (itemDict.ContainsKey(input))
-                // {
-                //     item.Use(this);
-
-                // }
+                Console.WriteLine($"{i}. {item} {item.GetInfo()}");
+                // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
+                itemDict[i.ToString()] = item;
+                i++;
             }
-            if (usedItem == false)
+            string input = Console.ReadLine();
+
+            if (input != "")
             {
-                Console.WriteLine("I couldn't find the item you're looking for.");
+                foreach (Item item in _inventory.Keys)
+                {
+                    if (item.ToString() == input || (itemDict.ContainsKey(input) && itemDict[input].ToString() == item.ToString()))
+                    {
+                        item.Use(this);
+                        usedItem = true;
+                        
+                        RemoveFromInventory(item);
+                        break;
+                    }
+                    // else if (itemDict.ContainsKey(input))
+                    // {
+                    //     item.Use(this);
+
+                    // }
+                }
+                if (usedItem == false)
+                {
+                    Console.WriteLine("I couldn't find the item you're looking for.");
+                }
+                Printer.PauseInput("");
             }
         }
-        Printer.PauseInput("");
+        else
+        {
+            Printer.PauseInput("You don't have any items in your inventory.");
+        }
     }
 
     public void RemoveFromInventory(Item item)
@@ -456,6 +466,7 @@ class Player
             """;
         if (_skillPoints > 0)
         {
+            Console.Clear();
             string input = "";
             do
             {

@@ -21,9 +21,16 @@ class Weapon : Gear
         return _attacks;
     }
 
-    public override string GetInfo()
+    public override string GetInfo(bool displayNumber = true)
     {
         Attack mainAttack = _attacks[0];
-        return $"[{mainAttack.GetStat()} {mainAttack.GetDamageRange()[0]}-{mainAttack.GetDamageRange()[1]}]";
+        if (displayNumber)
+        {
+            return $"[{GetNumber()}] [{mainAttack.GetStat()} {mainAttack.GetDamageRange()[0]}-{mainAttack.GetDamageRange()[1]}]";
+        }
+        else
+        {
+            return $"[{mainAttack.GetStat()} {mainAttack.GetDamageRange()[0]}-{mainAttack.GetDamageRange()[1]}]";
+        }
     }
 }

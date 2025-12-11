@@ -5,5 +5,5 @@ class Chomp : Attack
         , "strength"
         , new List<string>(){"chomped", "bit", "munched"}
         , 5
-        , new List<int>(){5, 7}){}
+        , new List<int>(){5, 6}){}
 }

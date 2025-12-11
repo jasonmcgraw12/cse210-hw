@@ -43,7 +43,7 @@ abstract class Item
         return _numberOfItem;
     }
 
-    public int GetCost()
+    public int GetCost(bool buyingItem = false)
     {
         int cost = _effectRange[0]+_effectRange[1];
         if (this is Food food)
@@ -58,12 +58,24 @@ abstract class Item
         {
             cost = (_effectRange[0]+_effectRange[1])*3;
         }
+        if (buyingItem == true)
+        {
+            cost *= GetNumber();
+        }
         return cost;
     }
 
-    public virtual string GetInfo()
+    public virtual string GetInfo(bool displayNumber = true)
     {
-        return $"[{GetNumber()}] [{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
+        if (displayNumber)
+        {
+            return $"[{GetNumber()}] [{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
+        }
+        else
+        {
+            return $"[{GetEffectRange()[0]}-{GetEffectRange()[1]}]";
+        }
+        
     }
 
     public override string ToString()

@@ -1,7 +1,7 @@
 class CagedShop : ShopRoom
 {
     public CagedShop(int level) : base(
-        "Vault Room"
+        "Caged Shop"
         , "There's a caged man locked behind bars. \"You there! If you can get me outa here I'll show you my wares.\""
         , new List<Enemy>() 
         , null 
@@ -30,7 +30,7 @@ class CagedShop : ShopRoom
         SetStatCheck(check);
         SetShopItems(new List<Item>()
         {
-            new Food("steak", 1, 10, 20)
+            new Steak()
             , new Axe()
         });
     }
