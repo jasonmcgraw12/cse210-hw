@@ -3,7 +3,7 @@ class PoisonedLair : Room
     public PoisonedLair(int level) : base (
         "Poisoned Lair"
         , "Poisoned smoke stings your loungs"
-        , new List<Enemy>(){new Goblin()}
+        , new List<Enemy>(){new Hoblin()}
         , null
     )
     {

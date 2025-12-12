@@ -6,7 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Player player = new();// = new("name",50,10,10,10,10); // CHANGE could easily make different "classes" by starting the player with different gear and stats
+        Player player = new();// CHANGE could easily make different "classes" by starting the player with different gear and stats
         string input = "";
         int roomNumber = 0;
         string fileName = LoadFile();
@@ -18,8 +18,8 @@ class Program
         };
         List<Func<Room>> shopRooms = new()
         {
-            // () => new CagedShop(player.GetLevel())
-             () => new adventureShop(player.GetLevel())
+            // () => new CagedShop(player.GetLevel()) // I removed this shop because not being able to shop (if you miss the check) makes the game too difficult
+            () => new adventureShop(player.GetLevel())
         };
         List<Func<Room>> rooms = new()
         {
@@ -34,15 +34,6 @@ class Program
         };
         
         Console.WriteLine("Welcome to a text dungeon adventure!");
-        
-
-
-        // Item apple = new Food("apple",1,1,2);
-        // player.AddToInventory(apple);
-        // Axe axe = new Axe();
-        // player.AddToInventory(axe);
-        // Armor shield = new("shield",1,3);
-        // player.AddToInventory(shield);
         
         while (input != "4")
         {

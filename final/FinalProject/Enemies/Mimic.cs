@@ -1,7 +1,7 @@
 class Mimic : Enemy
 {
     public Mimic() : base (
-        "mimic"
+        "Mimic"
         , 3
         , 30
         , 30

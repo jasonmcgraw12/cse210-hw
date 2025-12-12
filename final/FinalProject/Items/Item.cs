@@ -14,8 +14,6 @@ abstract class Item
         _numberOfItem = numberOfItem;
     }
 
-    public abstract void Use(Player player);
-
     public void SetNumber(int changeNumber, bool replace = false)
     {
         if (replace == true)
@@ -78,6 +76,8 @@ abstract class Item
         }
         
     }
+
+    public abstract void Use(Player player);
 
     public override string ToString()
     {

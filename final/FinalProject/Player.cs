@@ -252,7 +252,7 @@ class Player
         bool usedItem = false;
         int i = 1;
         Dictionary<string, Item> itemDict = new();
-        Console.WriteLine($"HP: {_health}/{_currentHealth}\nCoins: {_coins} \nXP: {_xp}/{_xpGoal}\nWeapon: {_weapon} {_weapon.GetInfo(false)}\nArmor: {_armor} {_armor.GetInfo(false)}");
+        Console.WriteLine($"HP: {_currentHealth}/{_health}\nCoins: {_coins} \nXP: {_xp}/{_xpGoal}\nWeapon: {_weapon} {_weapon.GetInfo(false)}\nArmor: {_armor} {_armor.GetInfo(false)}");
         Console.WriteLine("------------------------");
         if (_inventory.Count() > 0)
         {

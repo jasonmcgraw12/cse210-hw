@@ -57,13 +57,14 @@ class Room
                 // roomEffect = (player) => { };
                 _roomEffect(player); // this is for boss rooms, but I want it to take effect every round
             }
-            
             ContinueCombat(player);
         }
+
         if (_challenge != null)
         {
             Test();// this uses the _player while the continue combat uses player from inheriting, change so they're the same
         }
+
         while (_enemies.Count != 0)
         {
             if (_roomEffect != null)
@@ -71,7 +72,6 @@ class Room
                 // roomEffect = (player) => { };
                 _roomEffect(player); // this is for boss rooms, but I want it to take effect every round
             }
-            
             ContinueCombat(player);
         }
     }
