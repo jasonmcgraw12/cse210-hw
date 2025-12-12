@@ -25,7 +25,7 @@ class ScriptureMastaries
         ,{reference5,"When ye are in the service of your fellow beings ye are only in the service of your God."}
         ,{reference6,"By small and simple things are great things brought to pass; and small means in many instances doth confound the wise."}
         ,{reference7,"And now, my sons, remember, remember that it is upon the rock of our Redeemer, who is Christ, the Son of God, that ye must build your foundation."}
-    };
+    };//Add D&C 88:122;
     }
 
 
