@@ -22,22 +22,7 @@ class Player
     private Dictionary<Item, int> _inventory = new();
 
     public Player(){}
-    // public Player(
-    // string name,
-    // int health,
-    // int strength, 
-    // int dexterity, 
-    // int intelligence, 
-    // int charisma)
-    // {
-    //     _name = name;
-    //     _health = health;
-    //     _currentHealth = health;
-    //     _strength = strength;
-    //     _dexterity = dexterity;
-    //     _intelligence = intelligence;
-    //     _charisma = charisma;
-    // }
+    
     public Player(string[] generalInfo, string[] statInfo, Weapon weapon, Armor armor, List<Skill> skills, Dictionary<Item, int> items)
     {
         // name, coins, xp, level, skillpoints, xpGoal

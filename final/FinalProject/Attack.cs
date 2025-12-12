@@ -58,7 +58,7 @@ class Attack
         }
         else if (_owner is Player ownerPlayer)
         {
-            damage += ownerPlayer.GetStat(_statUsed)/5;
+            damage += ownerPlayer.GetStat(_statUsed)/4;
         }
         
         switch (target)

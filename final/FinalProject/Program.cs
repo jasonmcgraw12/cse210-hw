@@ -10,8 +10,6 @@ class Program
         string input = "";
         int roomNumber = 0;
         string fileName = LoadFile();
-        // ClassFactory.MakeClass("Goblin");
-        // LoadFile();
         List<Func<Room>> beginningRooms = new()
         {
             () => new Cave(player.GetLevel())
@@ -75,9 +73,6 @@ class Program
                 int i = rnd.Next(beginningRooms.Count());
                 Room createdRoom = CreateRoom(beginningRooms, i);
                 return createdRoom;
-                // int i = rnd.Next(beginningRooms.Count());
-                // Room createdRoom = CreateRoom(beginningRooms, i);
-                // return createdRoom;
             }
             else if (roomNumber % 10 == 0)
             {
@@ -97,9 +92,6 @@ class Program
                 Room createdRoom = CreateRoom(rooms, i);
                 return createdRoom;
             }
-            // string compilerPath = AppContext.BaseDirectory;
-            // string path = compilerPath+"../../../";
-            // string[] roomFiles = Directory.GetFiles(path);
         }
 
         Room CreateRoom(List<Func<Room>> roomFactories, int i)
@@ -107,49 +99,6 @@ class Program
             Func<Room> factory = roomFactories[i];
             return factory();
         }
-
-        // // Enemy goblin = new Goblin();
-        // // goblin.Display();
-
-        // Room room = new Vault();
-        // player.EnterRoom(room);
-
-        // Room room1 = new GoblinNest();
-        // player.EnterRoom(room1);
-        
-
-
-        // // using copilot to help with converting Json file into an enemy
-        // // Read JSON file
-        // string json = File.ReadAllText("enemies.json");
-
-        // // Convert JSON → EnemyData object
-        // EnemyData goblinData = JsonSerializer.Deserialize<EnemyData>(json);
-        // // Convert AttackData → Attack
-        // Attack stabAttack = new Attack(goblinData.attacks.attackName);
-
-        // // Convert lootTable (string,double) → Dictionary<Item,double>
-        // Dictionary<Item, double> loot = new();
-        // foreach (var kvp in goblinData.lootTable)
-        // {
-        //     Item item = new Item(kvp.Key); // assuming Item(string name) constructor
-        //     loot[item] = double.Parse(kvp.Value);
-        // }
-
-        // Enemy goblin = new Enemy(
-        //     goblinData.enemyName,
-        //     goblinData.enemyHealth,
-        //     goblinData.enemyHealth, // currentHealth starts full
-        //     new List<Attack> { stabAttack },
-        //     loot
-        // );
-
-        // // copilot code ends here
-
-        // LoadGoalFile();
-
-
-
 
         string LoadFile()
         {
@@ -204,47 +153,9 @@ class Program
         void Load(string path)
         {
             List<string> lines = new();
-            // bool isOnFirstLine = true;
-            // goals.Clear();
             foreach (string line in File.ReadLines(path))
             {
                 lines.Add(line);
-                // if (isOnFirstLine)
-                // {
-                //     string[] parts = line.Split("||");
-                //     totalPoints = int.Parse(parts[0]);
-                //     level = int.Parse(parts[1]);
-                //     isOnFirstLine = false;
-                // }
-                // else
-                // {
-                //     string[] parts = line.Split("||");
-                //     bool isComplete = bool.Parse(parts[2]);
-                //     string goalTitle = parts[3];
-                //     string goalDescription = parts[4];
-                //     int goalPoints = int.Parse(parts[5]);
-                //     if (parts[0] == "SimpleGoal")
-                //     {
-                //         SimpleGoal simpleGoal = new SimpleGoal(isComplete, goalPoints, goalTitle, goalDescription);
-                //         goals.Add(simpleGoal);
-                        
-                //     }
-                //     else if (parts[0] == "EternalGoal")
-                //     {
-                //         SimpleGoal simpleGoal = new EternalGoal(isComplete, goalPoints, goalTitle, goalDescription);
-                //         goals.Add(simpleGoal);
-                //     }
-                //     else if (parts[0] == "NumberedGoal")
-                //     {
-                //         int completionPoints = int.Parse(parts[6]);
-                //         int currentChecks = int.Parse(parts[7]);
-                //         int maxChecks = int.Parse(parts[8]);
-                //         SimpleGoal simpleGoal = new NumberedGoal(isComplete, goalPoints, completionPoints, currentChecks, maxChecks, goalTitle, goalDescription);
-                //         goals.Add(simpleGoal);
-                //     }
-                //     else{Console.WriteLine($"ERROR: {parts[0]} does not equal one of the given types");}
-                //     lines.Add(line);
-                // }
             }
             // Player General Info
             // name, coins, xp, level, skillpoints, roomNumber
@@ -308,12 +219,9 @@ class Program
                 , skills
                 , items
             );
-            // CONTINUE
-
-            // Save(fileName);// WARNING I'm not sure this does anything
         }
 
-        void Save(string fileName)//, int totalPoints, int level, List<SimpleGoal> goals)
+        void Save(string fileName)
         {
             string path = Environment.CurrentDirectory+"\\SaveFiles\\";
             if (Environment.CurrentDirectory == AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.Length - 1))
@@ -359,11 +267,6 @@ class Program
                     outputFile.Write($"{itemName}:{item.GetNumber()}||");
                 }
                 outputFile.WriteLine();
-                // outputFile.WriteLine(totalPoints+$"||{level}");
-                // foreach (SimpleGoal goal in goals)
-                // {
-                //     outputFile.WriteLine(goal.GetInfo());
-                // }
             }
         }
     }
