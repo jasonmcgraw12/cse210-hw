@@ -1,7 +1,7 @@
 class KingCollection : Room
 {
     public KingCollection(int level) : base(
-        "King's collection"
+        "King's Collection"
         , "You feel like royalty walking in this room. A giant red carpet and armor stands welcome you... Until you get too close."
         , new List<Enemy>(){new AnimatedArmor()}
         , new StatCheck(

@@ -1,12 +1,12 @@
 class Room
 {
-    string _title;
-    string _description;
-    List<Enemy> _enemies = new();
-    List<Enemy> _dyingEnemies = new();
-    Action<Player> _roomEffect = null;
-    StatCheck _challenge;
-    Player _player;
+    private string _title;
+    private string _description;
+    private List<Enemy> _enemies = new();
+    private List<Enemy> _dyingEnemies = new();
+    private Action<Player> _roomEffect = null;
+    private StatCheck _challenge;
+    private Player _player;
     // List<Contraption> contraptions = new();
     // CHANGE the above commented code to include interactables like chests or traps.
 

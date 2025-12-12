@@ -1,6 +1,8 @@
 class ShopRoom : Room
 {
     private List<Item> _shopItems;
+
+    
     public ShopRoom(string title, string description, List<Enemy> enemies, StatCheck challenge) : base(title, description, enemies, challenge)
     {
         // _title = title;

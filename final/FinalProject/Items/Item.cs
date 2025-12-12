@@ -5,7 +5,6 @@ abstract class Item
     private int _numberOfItem;
     private List<int> _effectRange = new();
 
-    public abstract void Use(Player player);
 
     public Item(string name, int numberOfItem, int minImpactAmount, int maxImpactAmount)
     {
@@ -14,6 +13,8 @@ abstract class Item
         _effectRange.Add(maxImpactAmount);
         _numberOfItem = numberOfItem;
     }
+
+    public abstract void Use(Player player);
 
     public void SetNumber(int changeNumber, bool replace = false)
     {

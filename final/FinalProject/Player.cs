@@ -458,6 +458,7 @@ class Player
     public void DisplayStats()
     {
         string displayMessage = $"""
+            Level: {_level} {_xp}/{_xpGoal}
             1. health ({_currentHealth}/{_health})
             2. strength ({_strength})
             3. dexterity ({_dexterity})

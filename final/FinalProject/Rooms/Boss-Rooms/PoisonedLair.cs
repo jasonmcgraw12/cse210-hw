@@ -1,5 +1,5 @@
 class PoisonedLair : Room
-{//string title, string description, List<Enemy> enemies, StatCheck challenge, Action<Player> bossRoomEffect
+{
     public PoisonedLair(int level) : base (
         "Poisoned Lair"
         , "Poisoned smoke stings your loungs"
