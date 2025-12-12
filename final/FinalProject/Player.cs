@@ -296,6 +296,7 @@ class Player
         {
             Printer.PauseInput("You don't have any items in your inventory.");
         }
+        Console.Clear();
     }
 
     public void RemoveFromInventory(Item item)
@@ -349,7 +350,6 @@ class Player
             //     attackChoice = new Punch();
             // }
         }
-        Console.WriteLine($"You ready your {attackChoice} attack.");
         return attackChoice;
     }
 

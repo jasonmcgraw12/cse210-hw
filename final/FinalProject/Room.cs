@@ -98,10 +98,10 @@ class Room
     {
         string input = null;
         bool didPerformAction = false;
-        Console.WriteLine($"Enemies in {_title}");
-        DisplayEnemies();
         while(!didPerformAction) // change, this while loop so that you can break out of it if all enemies are dead after you attacked.
         {
+        Console.WriteLine($"Enemies in {_title}");
+        DisplayEnemies();
         input = Printer.WriteRead("""
         What would you like to do?
         1. Use/equip item
@@ -117,6 +117,7 @@ class Room
                 Dictionary<string, Enemy> enemyDict = new();
                 while (!enemyDict.ContainsKey(input))
                 {
+                    Console.WriteLine($"You ready your {attack} attack.");
                     enemyDict = DisplayEnemies();
                     input = Printer.WriteRead("(Enter the corrisponding number of the enemy you want to target.)");
                     // Enemy target = null;

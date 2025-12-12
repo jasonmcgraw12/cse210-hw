@@ -9,7 +9,7 @@ class adventureShop : ShopRoom
     {
         SetShopItems(new List<Item>()
         {
-            new Rations()
+            new Ration()
             , new Axe()
             , new Sword()
             , new ChainArmor()

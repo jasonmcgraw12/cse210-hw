@@ -1,4 +1,4 @@
-class Rations : Food
+class Ration : Food
 {
-    public Rations() : base("rations", 4, 1, 5){}
+    public Ration() : base("ration", 4, 1, 5){}
 }
