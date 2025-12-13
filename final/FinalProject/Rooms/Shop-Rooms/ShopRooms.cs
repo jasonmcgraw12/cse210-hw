@@ -2,7 +2,7 @@ class ShopRoom : Room
 {
     private List<Item> _shopItems;
 
-    
+
     public ShopRoom(string title, string description, List<Enemy> enemies, StatCheck challenge) : base(title, description, enemies, challenge)
     {
         // _title = title;
@@ -43,7 +43,7 @@ class ShopRoom : Room
                 {
                     itemCost = 1;
                 }
-                Console.WriteLine($"{i}. {item} | {itemCost} coins");
+                Console.WriteLine($"{i}. {item.GetNumber()} {item.GetName()} | {itemCost} coins");
                 shopDict[i.ToString()] = item;
             }
             Console.WriteLine($"{i + 1}. sell items");
@@ -69,11 +69,11 @@ class ShopRoom : Room
                         {
                             player.SetMoney(-itemCost);
                             player.AddToInventory(item);
-                            Printer.PauseInput($"You bought the {item} for {itemCost} coins.");
+                            Printer.PauseInput($"You bought the {item.GetName()} for {itemCost} coins.");
                         }
                         else
                         {
-                            Printer.PauseInput($"You have {player.GetMoney()} coins, but the {item} costs {itemCost} coins.");
+                            Printer.PauseInput($"You have {player.GetMoney()} coins, but the {item.GetName()} costs {itemCost} coins.");
                         }
                         break;
                     }
@@ -102,7 +102,7 @@ class ShopRoom : Room
                 {
                     sellValue = 1;
                 }
-                Console.WriteLine($"{i}. {item} | {sellValue} coins");
+                Console.WriteLine($"{i}. [1/{item.GetNumber()}] {item.GetName()} | {sellValue} coins");
                 sellDict[i.ToString()] = item;
             }
             input = Console.ReadLine();
@@ -124,6 +124,7 @@ class ShopRoom : Room
                     
                 // }
                 player.RemoveFromInventory(item);
+                sellDict[input].SetNumber(-1);
             }
             Console.Clear();
         }

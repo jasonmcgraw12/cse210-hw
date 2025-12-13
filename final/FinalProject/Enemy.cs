@@ -93,7 +93,7 @@ class Enemy
                     {
                         Player player = room.GetPlayer();
                         player.AddToInventory(item);
-                        Printer.PauseInput($"You recieved {item.GetNumber()} {item} for killing the {this}!");
+                        Printer.PauseInput($"You recieved {item.GetNumber()} {item.GetName()} for killing the {this}!");
                     }
                 }
             room.SetDyingEnemy(this);

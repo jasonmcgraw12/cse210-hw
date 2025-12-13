@@ -81,12 +81,16 @@ abstract class Item
 
     public abstract void Use(Player player);
 
-    public override string ToString()
+    public string GetName()
     {
         if (_numberOfItem > 1 && _pluralName != null)
         {
             return _pluralName;
         }
+        return _name;
+    }
+    public override string ToString()
+    {
         return _name;
     }
 }

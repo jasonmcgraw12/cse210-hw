@@ -246,7 +246,7 @@ class Player
             Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
             foreach (Item item in _inventory.Keys)
             {
-                Console.WriteLine($"{i}. {item} {item.GetInfo()}");
+                Console.WriteLine($"{i}. {item.GetName()} {item.GetInfo()}");
                 // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
                 itemDict[i.ToString()] = item;
                 i++;
@@ -284,7 +284,7 @@ class Player
     public void RemoveFromInventory(Item item)
     {
         _inventory[item]--;
-        // item.SetNumber(-1);
+        item.SetNumber(-1);
         if (_inventory[item] <= 0)
         {
             _inventory.Remove(item);
@@ -350,7 +350,9 @@ class Player
             {
                 AddToInventory(_weapon);
             }
-            _weapon = weapon;
+            string newWeapon = ClassFactory.GetClassName(weapon.GetType());
+            _weapon = (Weapon)ClassFactory.MakeClass(newWeapon);
+            // _weapon.SetNumber(1, true);
         }
         if (item is Armor armor)
         {
@@ -358,7 +360,8 @@ class Player
             {
                 AddToInventory(_armor);
             }
-            _armor = armor;
+            string newArmor = ClassFactory.GetClassName(armor.GetType());
+            _armor = (Armor)ClassFactory.MakeClass(newArmor);
         }
     }
 
