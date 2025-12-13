@@ -1,11 +1,8 @@
 class Weapon : Gear
 {
     private List<Attack> _attacks = new();
-    // private object _owner;
-    public Weapon(string name, int minImpactAmount, int maxImpactAmount) : base(name, 1, minImpactAmount, maxImpactAmount)
-    {
-        // _owner = owner;
-    }
+    public Weapon(string name, string pluralName, int minImpactAmount, int maxImpactAmount) : base(name, pluralName, 1, minImpactAmount, maxImpactAmount)
+    {}
 
     public void AddAttack(Attack attack)
     {

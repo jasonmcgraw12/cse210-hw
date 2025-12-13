@@ -1,5 +1,5 @@
 class Armor : Gear
 {
     
-    public Armor(string name, int minImpactAmount, int maxImpactAmount) : base(name, 1, minImpactAmount, maxImpactAmount){}
+    public Armor(string name, string pluralName, int minImpactAmount, int maxImpactAmount) : base(name, pluralName, 1, minImpactAmount, maxImpactAmount){}
 }

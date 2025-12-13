@@ -2,13 +2,15 @@ abstract class Item
 {
     // public Random rnd = new();
     private string _name;
+    private string _pluralName;
     private int _numberOfItem;
     private List<int> _effectRange = new();
 
 
-    public Item(string name, int numberOfItem, int minImpactAmount, int maxImpactAmount)
+    public Item(string name, string pluralName, int numberOfItem, int minImpactAmount, int maxImpactAmount)
     {
         _name = name;
+        _pluralName = pluralName;
         _effectRange.Add(minImpactAmount);
         _effectRange.Add(maxImpactAmount);
         _numberOfItem = numberOfItem;
@@ -81,6 +83,10 @@ abstract class Item
 
     public override string ToString()
     {
+        if (_numberOfItem > 1 && _pluralName != null)
+        {
+            return _pluralName;
+        }
         return _name;
     }
 }

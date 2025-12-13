@@ -1,4 +1,4 @@
 class Steak : Food
 {
-    public Steak() : base("steak", 1, 10, 20){}
+    public Steak() : base("steak", "steaks", 1, 10, 20){}
 }

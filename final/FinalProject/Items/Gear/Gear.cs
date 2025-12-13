@@ -1,6 +1,6 @@
 class Gear : Item
 {
-    public Gear(string name, int numberOfItem, int minImpactAmount, int maxImpactAmount) : base (name, numberOfItem, minImpactAmount, maxImpactAmount){}
+    public Gear(string name, string pluralName, int numberOfItem, int minImpactAmount, int maxImpactAmount) : base (name, pluralName, numberOfItem, minImpactAmount, maxImpactAmount){}
     public override void Use(Player player)
     {
         

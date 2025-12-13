@@ -22,7 +22,7 @@ class Player
     private Dictionary<Item, int> _inventory = new();
 
     public Player(){}
-    
+
     public Player(string[] generalInfo, string[] statInfo, Weapon weapon, Armor armor, List<Skill> skills, Dictionary<Item, int> items)
     {
         // name, coins, xp, level, skillpoints, xpGoal
@@ -60,6 +60,7 @@ class Player
     public void SetTotalHealth(int changeAmount)
     {
         _health += changeAmount;
+        _currentHealth += changeAmount; // when total health increases the amount of damage you took is consistant
     }
 
     public void SetStrength(int changeAmount)
@@ -251,6 +252,7 @@ class Player
                 i++;
             }
             string input = Console.ReadLine();
+            Console.Clear();
 
             if (input != "")
             {
@@ -264,11 +266,6 @@ class Player
                         RemoveFromInventory(item);
                         break;
                     }
-                    // else if (itemDict.ContainsKey(input))
-                    // {
-                    //     item.Use(this);
-
-                    // }
                 }
                 if (usedItem == false)
                 {
@@ -468,6 +465,7 @@ class Player
                 if (input == "1" || input.ToLower() == "health")
                 {
                     _health += 5;
+                    _currentHealth += 5;
                     _skillPoints--;
                 }
                 else if (input == "2" || input.ToLower() == "strength")

@@ -52,7 +52,7 @@ class StatCheck
                     foreach (Item reward in _rewards)
                     {
                         player.AddToInventory(reward);
-                        Console.WriteLine($"You got [{reward.GetNumber()}] {reward} ");
+                        Console.WriteLine($"You got {reward.GetNumber()} {reward} ");
                     }
                     Printer.PauseInput("");
                     
