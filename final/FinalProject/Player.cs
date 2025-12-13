@@ -283,8 +283,7 @@ class Player
 
     public void RemoveFromInventory(Item item)
     {
-        _inventory[item]--;
-        item.SetNumber(-1);
+        _inventory[item]--; // now rations go down by two
         if (_inventory[item] <= 0)
         {
             _inventory.Remove(item);
