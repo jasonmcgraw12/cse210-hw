@@ -19,11 +19,11 @@ class Player
     private Weapon _weapon = new Dagger();
     private Armor _armor = new TatteredLeather();
     private List<Skill> _skills = new();
-    private Dictionary<Item, int> _inventory = new();
+    private List<Item> _inventory = new();
 
     public Player(){}
 
-    public Player(string[] generalInfo, string[] statInfo, Weapon weapon, Armor armor, List<Skill> skills, Dictionary<Item, int> items)
+    public Player(string[] generalInfo, string[] statInfo, Weapon weapon, Armor armor, List<Skill> skills, List<Item> items)
     {
         // name, coins, xp, level, skillpoints, xpGoal
         _name = generalInfo[0];
@@ -108,14 +108,14 @@ class Player
         return _skills;
     }
 
-    public Dictionary<Item, int> GetInventory()
+    public List<Item> GetInventory()
     {
         return _inventory;
     }
 
     public List<Item> GetItems()
     {
-        return _inventory.Keys.ToList();
+        return _inventory;
     }
     public int GetStat(string statName)
     {
@@ -203,32 +203,33 @@ class Player
         {
             _xp += xp.GetNumber();
         }
-        else if (_inventory.ContainsKey(item))
-        {
-            _inventory[item] += item.GetNumber();
-        }
+        // else if (_inventory.ContainsKey(item))
+        // {
+        //     _inventory[item] += item.GetNumber();
+        // }
         else
         {
             bool didAddToInventory = false;
-            foreach (Item inventoryItem in _inventory.Keys)
+            foreach (Item inventoryItem in _inventory)
             {
                 if (inventoryItem.ToString() == item.ToString())
                 {
-                    _inventory[inventoryItem] += item.GetNumber();
+                    // _inventory[inventoryItem] += item.GetNumber();
                     inventoryItem.SetNumber(item.GetNumber());
                     didAddToInventory = true;
                 }
             }
             if (!didAddToInventory)
             {
-                if (item.GetNumber() > 0)
-                {
-                    _inventory[item] = item.GetNumber();
-                }
-                else
-                {
-                    _inventory[item] = 1;
-                }
+                _inventory.Add(item);
+                // if (item.GetNumber() > 0)
+                // {
+                //     _inventory[item] = item.GetNumber();
+                // }
+                // else
+                // {
+                //     _inventory[item] = 1;
+                // }
             }
         }
     }
@@ -244,7 +245,7 @@ class Player
         {
             
             Console.WriteLine("What would you like to use? (if you don't want to use an item press enter to continue)");
-            foreach (Item item in _inventory.Keys)
+            foreach (Item item in _inventory)
             {
                 Console.WriteLine($"{i}. {item.GetName()} {item.GetInfo()}");
                 // WARNING should make effect ranges depend on the item, this works great for food, but weapons need a different system since they can have multiple attacks
@@ -256,7 +257,7 @@ class Player
 
             if (input != "")
             {
-                foreach (Item item in _inventory.Keys)
+                foreach (Item item in _inventory)
                 {
                     if (item.ToString() == input || (itemDict.ContainsKey(input) && itemDict[input].ToString() == item.ToString()))
                     {
@@ -283,8 +284,8 @@ class Player
 
     public void RemoveFromInventory(Item item)
     {
-        _inventory[item]--;
-        if (_inventory[item] <= 0)
+        // _inventory[item]--;
+        if (item.GetNumber() <= 0)
         {
             _inventory.Remove(item);
         }

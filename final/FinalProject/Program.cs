@@ -38,7 +38,7 @@ class Program
             player.LevelUp();
             input = Printer.WriteRead($"""
             [Room number: {roomNumber}]
-            
+
             What would you like to do?
             1. Check inventory
             2. Check stats
@@ -190,7 +190,7 @@ class Program
                     }
                 }
             }
-            Dictionary<Item, int> items = new();
+            List<Item> items = new();
             foreach (string itemNameAndNumber in itemNames)
             {
                 if (itemNameAndNumber != "")
@@ -203,8 +203,8 @@ class Program
                     if (madeClass is Item item)
                     {
                         item.SetNumber(itemNumber, true);
-                        items[item] = item.GetNumber();
-                        // items.Add(item);
+                        // items[item] = item.GetNumber();
+                        items.Add(item);
                     }
                     else
                     {

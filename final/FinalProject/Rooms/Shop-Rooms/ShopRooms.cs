@@ -68,7 +68,9 @@ class ShopRoom : Room
                         if (player.GetMoney() >= itemCost)
                         {
                             player.SetMoney(-itemCost);
-                            player.AddToInventory(item);
+                            string itemName = ClassFactory.GetClassName(item.GetType());
+                            Item newItem = (Item)ClassFactory.MakeClass(itemName);
+                            player.AddToInventory(newItem);
                             Printer.PauseInput($"You bought the {item.GetName()} for {itemCost} coins.");
                         }
                         else
@@ -80,9 +82,6 @@ class ShopRoom : Room
                 }
             }
         }
-
-
-        // CHANGE make a way to sell items here too
     }
 
     private void SellItems(Player player)
@@ -123,8 +122,8 @@ class ShopRoom : Room
                 // {
                     
                 // }
-                player.RemoveFromInventory(item);
                 sellDict[input].SetNumber(-1);
+                player.RemoveFromInventory(item);
             }
             Console.Clear();
         }
