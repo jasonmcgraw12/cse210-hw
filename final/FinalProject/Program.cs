@@ -36,7 +36,9 @@ class Program
         while (input != "4")
         {
             player.LevelUp();
-            input = Printer.WriteRead("""
+            input = Printer.WriteRead($"""
+            [Room number: {roomNumber}]
+            
             What would you like to do?
             1. Check inventory
             2. Check stats
